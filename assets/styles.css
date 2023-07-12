@@ -1,0 +1,41 @@
+/* CSS Document */
+
+body {
+    background-color: #121212;
+    font-family: Consolas;
+	font-size: 16px;
+    color: white;
+}
+
+.title {
+	font-size: 20px;
+	margin: 80px 0px 0px 0px;
+}
+
+.subtitle {
+	font-size: 32;
+	margin: 10px 0px;
+}
+
+.headerbar {
+	width: 200px;
+	margin: 10px 0px 20px 0px;
+}
+
+.buffer { height: 30px; }
+.buffer1 { height: 60px; }
+
+.menubar {
+	width: 100px;
+}
+
+.footer {
+/*	position: absolute; */
+/*	bottom: 5px;*/
+	font-size: 10px;
+}
+
+a {
+	color: white;
+	text-decoration: underline;
+}
