@@ -16,11 +16,16 @@ function startGame() {
 	
 	for(var i = 0; i < 9; i++) {
 		game[i] = -1;
-		document.getElementById("s" + i).innerHTML = " 		   ";
+		document.getElementById("s" + i).innerHTML = "";
 	}
 	
 	document.getElementById("message").innerHTML = "";
 	document.getElementById("info").innerHTML = "click a box to place your move. (x to play)";
+	
+	for(var j = 0; j < 9; j++) {
+		document.getElementById('s' + j).classList.remove('maindata','maindataNoHover');
+		document.getElementById('s' + j).classList.add('maindata');
+	}
 
 }
 
@@ -32,8 +37,8 @@ function move(pos = -1) {
 	if(pos != -1) {
 		if(game[pos] == -1) {
 			
-			if(playermove == 0 && playerwon == -1) document.getElementById("s" + pos).innerHTML = " 	x	 ";
-			if(playermove == 1 && playerwon == -1) document.getElementById("s" + pos).innerHTML = " 	o	 ";
+			if(playermove == 0 && playerwon == -1) document.getElementById("s" + pos).innerHTML = "x";
+			if(playermove == 1 && playerwon == -1) document.getElementById("s" + pos).innerHTML = "o";
 
 			game[pos] = playermove;
 
@@ -59,6 +64,13 @@ function move(pos = -1) {
 			
 			if(playermove == 0 && playerwon == -1) document.getElementById("info").innerHTML = "click a box to place your move. (x to play)";
 			if(playermove == 1 && playerwon == -1) document.getElementById("info").innerHTML = "click a box to place your move. (o to play)";
+			
+			if(playerwon != -1 || draw == true) {
+				for(var i = 0; i < 9; i++) {
+					document.getElementById('s' + i).classList.remove('maindata','maindataNoHover');
+					document.getElementById('s' + i).classList.add('maindataNoHover');
+				}
+			}
 				
 		} else if (playerwon == -1 && draw == false) {
 			document.getElementById("message").innerHTML = "you can't move there!";

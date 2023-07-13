@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="../assets/styles.css">
+		<link rel="stylesheet" type="text/css" href="../assets/projects.css">
 		<script src="../assets/tictactoe.js"></script>
 		<!-- <script src="assets/scripts.js"></script> -->
 		
@@ -29,35 +30,39 @@
 		
 		<a class="button" id="startbtn" href="javascript:startGame();">Play</a>
 		
+		<div class="buffer"></div>
+		
 		<div id="game" style="display: none">
-			<div id="board">
-				
-				<a href="javascript:move(0);" style="text-decoration: none" id="s0">᠎᠎ 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>
-				<a href="javascript:move(1);" style="text-decoration: none" id="s1"> 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>
-				<a href="javascript:move(2);" style="text-decoration: none" id="s2">᠎᠎ 		   </a>
-				
-			<br /><a style="color: dimgray; text-decoration: none">──────────────────</a><br />
-				
-				<a href="javascript:move(3);" style="text-decoration: none" id="s3">᠎᠎ 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>	
-				<a href="javascript:move(4);" style="text-decoration: none" id="s4">᠎᠎ 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>	
-				<a href="javascript:move(5);" style="text-decoration: none" id="s5">᠎᠎ 		   </a>
-				
-			<br /><a style="color: dimgray; text-decoration: none">──────────────────</a><br />
-				
-				<a href="javascript:move(6);" style="text-decoration: none" id="s6">᠎᠎ 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>	
-				<a href="javascript:move(7);" style="text-decoration: none" id="s7">᠎᠎ 		   </a>	<a style="color: dimgray; text-decoration: none">|</a>	
-				<a href="javascript:move(8);" style="text-decoration: none" id="s8"> 		   </a>
 			
-			</div>
+			<table class="maintable">
+				
+				<tr>
+					<td class="maindata" align="center" id="s0" onclick="move(0);"></td>
+					<td class="maindata" align="center" id="s1" onclick="move(1);"></td>
+					<td class="maindata" align="center" id="s2" onclick="move(2);"></td>
+				</tr>
+				
+				<tr class="mainrow">
+					<td class="maindata" align="center" id="s3" onclick="move(3);"></td>
+					<td class="maindata" align="center" id="s4" onclick="move(4);"></td>
+					<td class="maindata" align="center" id="s5" onclick="move(5);"></td>
+				</tr>
+				
+				<tr class="mainrow">
+					<td class="maindata" align="center" id="s6" onclick="move(6);"></td>
+					<td class="maindata" align="center" id="s7" onclick="move(7);"></td>
+					<td class="maindata" align="center" id="s8" onclick="move(8);"></td>
+				</tr>
+				
+			</table>
 			
-			<div class="buffer"></div>
+			<div class="buffer1"></div>
 			
 			<p id="info">click a box to place your move. (x to play)</p>
 			<p id="message"></p>
 			
 		</div>
 		
-		
-		
 	</div> </body>
+	
 </html>
