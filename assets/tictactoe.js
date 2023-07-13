@@ -7,9 +7,6 @@ let draw = false;
 // start the game
 function startGame() {
 	
-	document.getElementById("startbtn").style.display = 'none';
-	document.getElementById("game").style.display = 'block';
-	
 	playermove = 0; // 0:x 1:y
 	playerwon = -1;
 	draw = false;
@@ -39,7 +36,12 @@ function move(pos = -1) {
 			
 			if(playermove == 0 && playerwon == -1) document.getElementById("s" + pos).innerHTML = "x";
 			if(playermove == 1 && playerwon == -1) document.getElementById("s" + pos).innerHTML = "o";
-
+			
+			if (playerwon == -1) {
+				document.getElementById('s' + pos).classList.remove('maindata','maindataNoHover');
+				document.getElementById('s' + pos).classList.add('maindataNoHover');
+			}
+			
 			game[pos] = playermove;
 
 			// win
