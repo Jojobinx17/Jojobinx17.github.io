@@ -1,0 +1,60 @@
+/* CSS Document */
+
+.main-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#headerbar {
+	float: left;
+	width: 35%;
+/*	border: 2px solid white;*/
+}
+
+#game {
+	float: left;
+	width: 60%;
+}
+
+#margin {
+	float: left;
+	width: 5%;
+}
+
+
+.gameboard {
+    border:none;
+    border-collapse: collapse;
+}
+
+.gameboard td {
+    border: 5px solid #444;
+}
+
+.gameboard .mainrow {
+    border-top: 5px solid #222;
+}
+
+.gamesquare {
+	width: 100px;
+	height: 100px;
+	background-color: #121212;
+}
+
+.gamesquarehover {
+	width: 100px;
+	height: 100px;
+	background-color: #777;
+}
+
+.gamesquarehoverlight {
+	width: 100px;
+	height: 100px;
+	background-color: #333;
+}
+
+.arrowsquare {
+	width: 103px;
+	height: 100px;
+}

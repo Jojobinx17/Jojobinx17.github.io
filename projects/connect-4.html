@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+	
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../assets/css/styles.css">
+		<link rel="stylesheet" type="text/css" href="../assets/css/con4.css">
+		<script src="../assets/js/connect4.js"></script>
+		<!-- <script src="assets/scripts.js"></script> -->
+		
+		<title>connect-4</title>
+		
+	</head>
+
+	<body> <div style="height: 100px"></div> <div align="center" class="main-content">
+		
+		<div id="margin">&nbsp;</div>
+		
+		<div id="headerbar" align="center">
+
+			<p class="title">connect-4 (incomplete)</p>
+			<hr class="headerbar">
+
+			<table> <tr> 
+				<td class="menubar" align="center"><a href="../">go home</a></td>
+				<td class="menubar" align="center"><a href="../projects/">projects</a></td>
+			</tr> </table>
+
+			<div class="buffer1"></div>
+			<div class="buffer"></div>
+			
+			<p id="info">click a column to place your move.<br />(red to play)</p>
+			<p id="message"></p>
+			
+		</div>
+		
+		<div id="game" class="no-select">
+		
+			<table id="mainboard" class="gameboard">
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s0" onclick="move(0);">&#x1f534;</td>
+					<td class="gamesquare" align="center" id="s1" onclick="move(1);">&#x1f7e1;</td>
+					<td class="gamesquare" align="center" id="s2" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s3" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s4" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s5" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s6" onclick="move(6);"></td>
+				</tr>
+
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s7" onclick="move(0);"></td>
+					<td class="gamesquare" align="center" id="s8" onclick="move(1);">&nbsp;</td>
+					<td class="gamesquare" align="center" id="s9" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s10" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s11" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s12" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s13" onclick="move(6);"></td>
+				</tr>
+
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s14" onclick="move(0);"></td>
+					<td class="gamesquare" align="center" id="s15" onclick="move(1);"></td>
+					<td class="gamesquare" align="center" id="s16" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s17" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s18" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s19" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s20" onclick="move(6);"></td>
+				</tr>
+
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s21" onclick="move(0);"></td>
+					<td class="gamesquare" align="center" id="s22" onclick="move(1);"></td>
+					<td class="gamesquare" align="center" id="s23" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s24" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s25" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s26" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s27" onclick="move(6);"></td>
+				</tr>
+
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s28" onclick="move(0);"></td>
+					<td class="gamesquare" align="center" id="s29" onclick="move(1);"></td>
+					<td class="gamesquare" align="center" id="s30" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s31" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s32" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s33" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s34" onclick="move(6);"></td>
+				</tr>
+
+				<tr class="boardrow">
+					<td class="gamesquare" align="center" id="s35" onclick="move(0);"></td>
+					<td class="gamesquare" align="center" id="s36" onclick="move(1);"></td>
+					<td class="gamesquare" align="center" id="s37" onclick="move(2);"></td>
+					<td class="gamesquare" align="center" id="s38" onclick="move(3);"></td>
+					<td class="gamesquare" align="center" id="s39" onclick="move(4);"></td>
+					<td class="gamesquare" align="center" id="s40" onclick="move(5);"></td>
+					<td class="gamesquare" align="center" id="s41" onclick="move(6);"></td>
+				</tr>
+			</table>
+			
+			<p style="color: #333">TODO: add win/draw algorithm</p>
+
+		</div>
+		
+		<script>startGame();</script>
+		
+	</div> </body>
+	
+</html>
