@@ -163,17 +163,17 @@ function checkWin() {
 	
 	for(var i = 0; i < wins.length; i++) {
 		
-		document.getElementById("s" + i[0]).innerHTML = "x";
-		document.getElementById("s" + i[1]).innerHTML = "x";
-		document.getElementById("s" + i[2]).innerHTML = "x";
-		document.getElementById("s" + i[3]).innerHTML = "x";
+		document.getElementById("s" + wins[i][0]).innerHTML = "x";
+		document.getElementById("s" + wins[i][1]).innerHTML = "x";
+		document.getElementById("s" + wins[i][2]).innerHTML = "x";
+		document.getElementById("s" + wins[i][3]).innerHTML = "x";
 								
 		alert(i);
 		
-		document.getElementById("s" + i[0]).innerHTML = "";
-		document.getElementById("s" + i[1]).innerHTML = "";
-		document.getElementById("s" + i[2]).innerHTML = "";
-		document.getElementById("s" + i[3]).innerHTML = "";
+		document.getElementById("s" + wins[i][0]).innerHTML = "x";
+		document.getElementById("s" + wins[i][1]).innerHTML = "x";
+		document.getElementById("s" + wins[i][2]).innerHTML = "x";
+		document.getElementById("s" + wins[i][3]).innerHTML = "x";
 	}
 }
 
