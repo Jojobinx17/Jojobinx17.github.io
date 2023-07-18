@@ -8,20 +8,28 @@
 
 #headerbar {
 	float: left;
-	width: 35%;
+	width: 30%;
+	padding: 0px 5px 0px 120px;
 /*	border: 2px solid white;*/
 }
 
 #game {
 	float: left;
 	width: 60%;
+	padding: 0px 0px 0px 50px;
+/*	border: 2px solid white;*/
 }
 
-#margin {
-	float: left;
-	width: 3%;
+#clearer {
+	text-decoration: none;
+	color: #333;
 }
 
+#clearer:hover {
+	text-decoration: none;
+	color: #555;
+	user-select: auto;
+}
 
 .gameboard {
     border:none;
@@ -53,6 +61,7 @@
 	height: 100px;
 	background-color: #333;
 }
+
 
 .arrowsquare {
 	width: 103px;
