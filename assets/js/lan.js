@@ -104,7 +104,7 @@ function destroyRoom() {
 		document.getElementById("connectedplayers").style = 'display: none';
 		
 		setTimeout(function() {
-			window.location.href = "../lan/";
+			window.location.href = "../online/";
 		}, 200);
 	}
 }
