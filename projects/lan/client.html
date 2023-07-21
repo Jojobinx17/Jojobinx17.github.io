@@ -1,0 +1,38 @@
+ <!doctype html>
+<html>
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">	
+		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
+		
+		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+		<script src="../../assets/js/lan.js"></script>
+			
+		<!-- FALLBACK LIBRARY CODE:
+		<script src="../../assets/js/peerjs.js></script>  -->
+		
+		<title>lan games</title>
+	</head>
+
+	<body> <div align="center">
+	
+		<p class="title">lan games (client)</p>
+		<hr class="headerbar">
+		
+		<table> <tr> 
+			<td class="menubar" align="center"><a href="../../">go home</a></td>
+			<td class="menubar" align="center"><a href="../../projects/">projects</a></td>
+		</tr> </table>
+		
+		<p id="peerid">creating peer object...</p>
+		<p id="success">connecting...</p>
+		<p id="errors"></p>
+		
+		<button id="disconnectbtn" class="copy-button" style="display: none" onClick="clientDisconnect();">disconnect</button> 
+		
+		<script>connectToPeer();</script>
+
+	</div> </body>
+</html>

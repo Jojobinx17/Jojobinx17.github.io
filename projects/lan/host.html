@@ -18,7 +18,7 @@
 
 	<body> <div align="center">
 	
-		<p class="title">lan games</p>
+		<p class="title">lan games (host)</p>
 		<hr class="headerbar">
 		
 		<table> <tr> 
@@ -27,30 +27,20 @@
 		</tr> </table>
 		
 		<div class="buffer1"></div>
-		
-		<button id="createbtn" class="main-button" onClick="window.location.href = 'host.html'">create room</button> 
-		&nbsp; &nbsp; &nbsp;
-		<button id="joinbtn" class="main-button" onClick="showJoinGUI();">join room</button>
-		
-		<br /><br />
 			
 		<a id="idtext" style="text-decoration: none"></a>
-		<a id="roomid" style="text-decoration: none"></a>
+		<a id="roomid" style="text-decoration: none">creating room...</a>
 
-		<button id="copybtn" class="copy-button" style="display: none" onClick="copyRoomId();">Copy</button> 
+		<button id="copybtn" class="copy-button" style="display: none" onClick="copyRoomId();">copy</button> 
+		<button id="hidebtn" class="copy-button" style="display: none" onClick="hideId();">hide</button> 
 		<button id="destroybtn" class="copy-button" style="display: none" onClick="destroyRoom();">destroy</button> 
 
 		<div id="connectedplayers" style="display: none">
-			<p>waiting for other people to connect...</p>
+			<p id="waiting">waiting for other people to connect... do not refresh this page.</p>
+			<p id="log"></p>
 		</div>
 		
-		<div id="join" style="display: none">
-			
-			<input type="text" id="joinid" class="input" placeholder="room id">
-			<button class="copy-button" onclick="goToPeerRoom();">connect</button>
-			<button class="copy-button" onclick="hideJoinGUI();">cancel</button>
-		
-		</div>
-		
+		<script>createRoom();</script>
+
 	</div> </body>
 </html>
