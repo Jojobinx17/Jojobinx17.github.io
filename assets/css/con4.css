@@ -4,19 +4,20 @@
   content: "";
   display: table;
   clear: both;
+  float: left;
 }
 
 #headerbar {
 	float: left;
 	width: 30%;
-	padding: 0px 5px 0px 120px;
+	padding: 5px 50px;
 /*	border: 2px solid white;*/
 }
 
 #game {
 	float: left;
 	width: 60%;
-	padding: 0px 0px 0px 50px;
+	padding: 0px 0px 0px 0px;
 /*	border: 2px solid white;*/
 }
 

@@ -1,0 +1,43 @@
+ <!doctype html>
+<html>
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">	
+		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
+		
+		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+		<script src="../../assets/js/lan.js"></script>
+			
+		<!-- FALLBACK LIBRARY CODE:
+		<script src="../../assets/css/jeerjs.css></script>  -->
+		
+		<title>lan games</title>
+	</head>
+
+	<body> <div align="center">
+	
+		<p class="title">lan games</p>
+		<hr class="headerbar">
+		
+		<table> <tr> 
+			<td class="menubar" align="center"><a href="../../">go home</a></td>
+			<td class="menubar" align="center"><a href="../../projects">projects</a></td>
+		</tr> </table>
+		
+		<div class="buffer1"></div>
+		
+		<button class="main-button" onClick="createRoom();">create room</button> 
+		&nbsp; &nbsp; &nbsp;
+		<button class="main-button" onClick="createPeer();">join room</button>
+		
+		<br /><br />
+		<a id="idtext" style="text-decoration: none"></a>
+		<a id="roomid" style="text-decoration: none"></a>
+		<button id="copybtn" class="copy-button" style="display: none" onClick="copyRoomId();">Copy</button> 
+		
+		<p id="log"></p>
+		
+	</div> </body>
+</html>

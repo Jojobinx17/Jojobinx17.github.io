@@ -19,8 +19,8 @@
 				
 		<div id="headerbar" align="center">
 
-			<p class="title">connect-4 (incomplete)</p>
-			<hr class="headerbar">
+			<p class="title">connect-4</p>
+			<hr class="headerbar" style="width: 80%">
 
 			<table> <tr> 
 				<td class="menubar" align="center"><a href="../">go home</a></td>
@@ -104,7 +104,16 @@
 
 		</div>
 		
-		<script>startGame();</script>
+		<script>
+			
+			startGame();
+			
+			if(mobileCheck() == true) {
+				document.getElementById("game").style.display = "none";
+				document.getElementById("info").innerHTML = "sorry, this game doesn't work on mobile.";
+			}
+
+		</script>
 		
 	</div> </body>
 	
