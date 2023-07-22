@@ -1,5 +1,6 @@
 let playersConnected = 0;
 let roomID = "";
+const date = new Date();
 
 const chatMessages = [""];
 let myUsername = "server-host";
@@ -19,6 +20,7 @@ peer.on('error', function(err) {
 	document.getElementById("idtext").innerHTML = '';
 	document.getElementById("players").innerHTML = '';
 	document.getElementById("destroybtnerr").style = '';
+	document.getElementById("destroybtn").style = 'display: none';
 	
 	console.log(err);
 	if(err.type == "invalid-id") console.log("ID must start and end with an alphanumeric character (lower or upper case character or a digit). In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.");
@@ -67,7 +69,7 @@ peer.on('connection', function(tempconn) {
 	conn.on('open', function() {
 		console.log('Connection established with ' + conn.peer);
 		document.getElementById("waiting").innerHTML = '';
-		document.getElementById("log").innerHTML += 'connection established with ' + conn.peer + '.<br />';
+		printLog('connection established with ' + conn.peer);
 
 		var dataToSend = [
 			 { type: "establish" },
@@ -79,7 +81,7 @@ peer.on('connection', function(tempconn) {
 	});
 
 	conn.on('close', function() {
-		document.getElementById("log").innerHTML += conn.peer + ' has disconnected.<br />';
+		printLog(conn.peer + ' has disconnected.');
 		playersConnected--;
 		updatePlayerText();
 	});
@@ -229,4 +231,9 @@ function updatePlayerText() {
 	} else {
 		document.getElementById("players").innerHTML = " || " + playersConnected + " players connected.";
 	}
+}
+
+function printLog(text) {
+	var logElement = document.getElementById("log");
+	logElement.innerHTML += currentdate.getHours() + ":"  + date.getMinutes() + ":" + date.getSeconds() + " - " + text + "<br />";
 }
