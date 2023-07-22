@@ -1,8 +1,13 @@
 /* CSS Document */
 
+@font-face {
+  font-family: consola;
+  src: url("/assets/consolas.TTF");
+}
+
 body {
     background-color: #121212;
-    font-family: Consolas;
+    font-family: consola;
 	font-size: 28px;
     color: white;
 	line-height: 1.5;

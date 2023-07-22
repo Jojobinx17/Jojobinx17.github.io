@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
 		
 		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
-		<script src="../../assets/js/lan.js"></script>
+		<script src="../../assets/js/client.js"></script>
 			
 		<!-- FALLBACK LIBRARY CODE:
 		<script src="../../assets/js/peerjs.js></script>  -->
@@ -20,19 +20,38 @@
 	
 		<p class="title">online games (client)</p>
 		<hr class="headerbar">
-		
-		<table> <tr> 
-			<td class="menubar" align="center"><a href="../../">go home</a></td>
-			<td class="menubar" align="center"><a href="../../projects">projects</a></td>
-		</tr> </table>
-		
-		<p id="peerid">creating peer object...</p>
-		<p id="success">connecting...</p>
-		<p id="errors"></p>
-		
-		<button id="disconnectbtn" class="copy-button" style="display: none" onClick="clientDisconnect();">disconnect</button> 
-		
-		<script>connectToPeer();</script>
 
+		<a id="success" style="text-decoration: none">creating peer object...</a>
+		<button id="disconnectbtn" class="copy-button" onClick="clientDisconnect();">disconnect</button>
+		
+		<p id="errors"></p>
+		<button id="disconnectbtnerr" class="copy-button" onClick="clientDisconnect();" style="display: none">disconnect</button>
+		
+		<div id="chat" style="display: block">
+			
+			<br />
+			<input type="text" class="input" placeholder="send a chat..." id="chatbox">
+			<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox">
+			<button class="copy-button" id="sendbtn" onClick="sendChat();">send</button>
+			<button class="copy-button" id="savenamebtn" style="display: none" onClick="saveChangeName()">save</button>
+			
+			<br />
+			<small id="currentname">current name: unnamed-user</small>
+			<button class="copy-button" id="changenamebtn" onClick="showChangeName();">change</button>
+			
+			<p class="title" id="chattitle"></p> 
+			
+			<div id="chatlog"></div>
+			
+		</div>
+		
+		<script>
+			if(getCookie("username") != "") {
+				myUsername = getCookie("username");
+				document.getElementById("currentname").innerHTML = "current name: " + myUsername;
+				document.getElementById("namebox").value = myUsername;
+			}
+		</script>
+		
 	</div> </body>
 </html>
