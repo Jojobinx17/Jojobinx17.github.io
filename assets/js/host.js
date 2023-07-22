@@ -235,5 +235,5 @@ function updatePlayerText() {
 
 function printLog(text) {
 	var logElement = document.getElementById("log");
-	logElement.innerHTML += currentdate.getHours() + ":"  + date.getMinutes() + ":" + date.getSeconds() + " - " + text + "<br />";
+	logElement.innerHTML += date.getHours() + ":"  + date.getMinutes() + ":" + date.getSeconds() + " - " + text + "<br />";
 }
