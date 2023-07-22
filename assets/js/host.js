@@ -43,6 +43,9 @@ peer.on('open', function(id) {
 peer.on('connection', function(tempconn) {
 	
 	window.conn = tempconn;
+	
+	// open the chat window
+	document.getElementById("chat").style = ''
 
 	conn.on('data', function(data) {
 
