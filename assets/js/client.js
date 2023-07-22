@@ -97,6 +97,7 @@ function saveChangeName() {
 	document.getElementById("currentname").style = "";
 	
 	setCookie("username", myUsername, 7);
+	document.getElementById("chatbox").select();
 }
 
 function clientDisconnect() {

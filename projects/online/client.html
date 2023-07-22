@@ -30,9 +30,11 @@
 		<div id="chat" style="display: none">
 			
 			<br />
-			<input type="text" class="input" placeholder="send a chat..." id="chatbox">
+			<form onsubmit="sendChat(); return false;">
+				<input type="text" class="input" placeholder="send a chat..." id="chatbox">
+				<input type="submit" class="copy-button" id="sendbtn" value="send">
+			</form>
 			<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox">
-			<button class="copy-button" id="sendbtn" onClick="sendChat();">send</button>
 			<button class="copy-button" id="savenamebtn" style="display: none" onClick="saveChangeName()">save</button>
 			
 			<br />
