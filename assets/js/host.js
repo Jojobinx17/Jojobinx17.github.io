@@ -179,6 +179,8 @@ function saveChangeName() {
 	document.getElementById("changenamebtn").style = "";
 	document.getElementById("currentname").style = "";
 	
+	document.getElementById("chatbox").select();
+	
 }
 
 function copyRoomId() {

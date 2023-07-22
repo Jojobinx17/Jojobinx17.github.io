@@ -35,21 +35,25 @@
 		
 		<div id="create" style="display: none">
 			
-			<input type="text" id="createid" class="input" placeholder="room id (optional)" value="">
-			<button class="copy-button" onclick="goToHostRoom();">create</button>
-			<button class="copy-button" onclick="hideCreateGUI();">cancel</button>
+			<form onsubmit="return false;">
+				<input type="text" id="createid" class="input" placeholder="room id (optional)" value="">
+				<input type="submit" class="copy-button" onClick="goToHostRoom();" value="create">
+				<button class="copy-button" onclick="hideCreateGUI();">cancel</button>
+			</form>
 			
-			<br /> <br />
+			<br />
 			<small id="warning" style="display: none">note: anyone on the internet can join your game through this id. leaving the field blank will result in a more secure room.</small>
 		
 		</div>
 		
 		<div id="join" style="display: none">
 			
-			<input type="text" id="joinid" class="input" placeholder="room id" value="">
-			<button class="copy-button" onclick="goToPeerRoom();">connect</button>
-			<button class="copy-button" onclick="hideJoinGUI();">cancel</button>
-		
+			<form onsubmit="return false;">
+				<input type="text" id="joinid" class="input" placeholder="room id" value="">
+				<input type="submit" value="connect" class="copy-button" onclick="goToPeerRoom();">
+				<button class="copy-button" onclick="hideJoinGUI();">cancel</button>
+			</form>
+			
 		</div>
 		
 	</div> </body>
