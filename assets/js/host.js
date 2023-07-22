@@ -15,8 +15,11 @@ if(hostID != '') {
 
 peer.on('error', function(err) {
 	document.getElementById("roomid").innerHTML = "ERROR - " + err.type + ". see console for details.";
+	
 	document.getElementById("idtext").innerHTML = '';
 	document.getElementById("players").innerHTML = '';
+	document.getElementById("destroybtnerr").style = '';
+	
 	console.log(err);
 	if(err.type == "invalid-id") console.log("ID must start and end with an alphanumeric character (lower or upper case character or a digit). In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.");
 });

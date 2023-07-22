@@ -15,12 +15,6 @@
 		
 		<title>online games</title>
 		
-		<script type="text/javascript">
-			// prevent the user from reloading
-			//window.onbeforeunload = function() {
-			//	return "Dude, are you sure you want to leave? Think of the kittens!";
-			//}
-		</script>
 	</head>
 
 	<body> <div align="center">
@@ -43,8 +37,9 @@
 			<small id="closemsg" style="text-decoration: none"></small>
 
 			<button id="cancelclosebtn" class="copy-button" style="display: none" onClick="hideCloseGUI();">cancel</button>
+			<button id="destroybtnerr" class="copy-button" style="display: none" onClick="destroyRoom();">close room</button>
 			<button id="destroybtn" class="copy-button" style="display: none" onClick="destroyRoom();">close room</button> <br />
-
+			
 			<small id="waiting" style="display: none">waiting for other people to connect... do not refresh this page.</small>
 			<small id="log" style="display: none"></small>
 
