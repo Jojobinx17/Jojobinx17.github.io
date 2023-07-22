@@ -1,2 +1,0 @@
-[21-Jul-2023 19:41:11 UTC] PHP Warning:  Unknown: php_network_getaddresses: getaddrinfo for locahost failed: No such host is known.  in Unknown on line 0
-[21-Jul-2023 19:41:23 UTC] PHP Warning:  Unknown: php_network_getaddresses: getaddrinfo for locahost failed: No such host is known.  in Unknown on line 0

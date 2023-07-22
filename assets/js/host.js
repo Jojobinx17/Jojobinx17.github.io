@@ -45,7 +45,7 @@ peer.on('connection', function(tempconn) {
 	window.conn = tempconn;
 	
 	// open the chat window
-	document.getElementById("chat").style = ''
+	document.getElementById("chat").style = '';
 
 	conn.on('data', function(data) {
 
@@ -79,7 +79,7 @@ peer.on('connection', function(tempconn) {
 	});
 
 	conn.on('close', function() {
-		document.getElementById("log").innerHTML += 'Peer ' + conn.peer + ' has disconnected.<br />';
+		document.getElementById("log").innerHTML += conn.peer + ' has disconnected.<br />';
 		playersConnected--;
 		updatePlayerText();
 	});
