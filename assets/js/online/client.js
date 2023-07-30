@@ -9,24 +9,28 @@ const chatMessages = [""];
 // error handling
 peer.on('error', function(err) { 
 	console.log(err);
-	document.getElementById("errors").innerHTML = "ERROR - " + err.type + ". see console for details.";
+	document.getElementById("errors").innerHTML = err.type + ". see console for details.";
 	document.getElementById("disconnectbtnerr").style = "";
 	document.getElementById("success").style = 'display: none;';
 	document.getElementById("disconnectbtn").style = "display: none;";
+	document.getElementById("chat").style = "display: none;";
 });
 
 // on the creation of the peer object...
 peer.on('open', function(id) {
 
 	//show the id to the user and make a connection object
-	console.log('your peer id: ' + id)
+	console.log('your peer id: ' + id);
+	
+	console.log('connecting to ' + roomID + "...");
 	document.getElementById("success").innerHTML = 'connecting...';
 	conn = peer.connect(roomID);
 	
 	// on an open connection...
 	conn.on('open', function() {
 		
-		console.log(conn);
+		console.log("connection object:", conn);
+		//console.log(conn);
 		
 		// prep to receive data
 		conn.on('data', function(data) {
@@ -48,6 +52,11 @@ peer.on('open', function(id) {
 			}
 
 		});
+		
+		conn.on('error', function(err) { 
+			console.log(err);
+		});
+
 	});
 });
 
@@ -72,33 +81,6 @@ function sendChat() {
 	}
 }
 
-function showChangeName() {
-	document.getElementById("savenamebtn").style = "";
-	document.getElementById("namebox").style = "";
-	document.getElementById("namebox").select();
-	
-	document.getElementById("chatbox").style = "display: none";
-	document.getElementById("sendbtn").style = "display: none";
-	document.getElementById("changenamebtn").style = "display: none";
-	document.getElementById("currentname").style = "display: none";
-}
-
-function saveChangeName() {
-	
-	myUsername = document.getElementById("namebox").value;
-	document.getElementById("currentname").innerHTML = "current name: " + myUsername;
-	
-	document.getElementById("savenamebtn").style = "display: none";
-	document.getElementById("namebox").style = "display: none";
-	
-	document.getElementById("chatbox").style = "";
-	document.getElementById("sendbtn").style = "";
-	document.getElementById("changenamebtn").style = "";
-	document.getElementById("currentname").style = "";
-	
-	setCookie("username", myUsername, 7);
-	document.getElementById("chatbox").select();
-}
 
 function clientDisconnect() {
 	if(window.conn) conn.close();
@@ -111,25 +93,15 @@ function clientDisconnect() {
 	window.location.href = "index.html";
 }
 
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
+//setInterval(function() {
+//	if(!conn.peerConnection) {
+//		console.log("ping failed");
+//		document.getElementById("chat").style.display = "none";
+//		document.getElementById("success").innerHTML = "the server has been disconnected.";
+//		document.getElementById("disconnectbtn").innerHTML = "exit";
+//	} else {
+//		console.log("ping success");
+//	}
+//}, 5000);
+//
 
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}

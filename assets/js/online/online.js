@@ -15,6 +15,8 @@ function showCreateGUI() {
 	document.getElementById("createid").addEventListener('input', function() {
 		document.getElementById("warning").style = '';
 	})
+	
+	document.getElementById("createid").select();
 
 }
 
@@ -43,31 +45,67 @@ function goToHostRoom() {
 }
 
 function showJoinGUI() {
-		
+
+	document.getElementById("idform").style = '';
+	document.getElementById("usernameform").style = 'display: none';
+
+	document.getElementById("join").style = '';
+	
 	document.getElementById("createbtn").classList.add("main-button-selected");
 	document.getElementById("createbtn").classList.remove("main-button");
 	document.getElementById("createbtn").disabled = true;
 
 	document.getElementById("joinbtn").classList.remove("main-button-selected");
 	document.getElementById("joinbtn").classList.add("main-button");
-
-	document.getElementById("join").style = '';
-	document.getElementById("joinid").value = '';
-
+	
+	document.getElementById("joinid").select();
 
 }
 
+function showJoinNameGUI() {
+	document.getElementById("idform").style = 'display: none';
+	document.getElementById("usernameform").style = '';
+	
+	console.log(getCookie('username'));
+	document.getElementById("joinusername").value = getCookie('username');
+
+	
+	document.getElementById("joinusername").select();
+}
+
+function hideJoinNameGUI() {
+	document.getElementById("idform").style = '';
+	document.getElementById("usernameform").style = 'display: none';
+	document.getElementById("joinerror").innerHTML = "";	
+	document.getElementById("joinid").select();
+}
+
+
 function hideJoinGUI() {
-		
+	document.getElementById("join").style = 'display: none';
+	
+	document.getElementById("idform").style = '';
+	document.getElementById("usernameform").style = 'display: none';
+	document.getElementById("joinerror").innerHTML = "";
+	
 	document.getElementById("createbtn").classList.remove("main-button-selected");
 	document.getElementById("createbtn").classList.add("main-button");
-
-	document.getElementById("join").style = 'display: none;';
 	document.getElementById("createbtn").disabled = false;
 }
 
 function goToPeerRoom() {
 	var roomID = document.getElementById("joinid").value;
-	window.location.href = "client.html#" + roomID;
+	roomID = roomID.substring(0, 50);
+	var username = document.getElementById("joinusername").value;
+	username = username.substring(0, 25);
+	setCookie("username", username, 7);
+	
+	if(username.replaceAll(' ', '').replaceAll('	', '') != '') {
+		setCookie()
+		window.location.href = "client.html#" + roomID;
+	} else {
+		document.getElementById("joinerror").innerHTML = "invalid username!";
+		document.getElementById("joinusername").select();
+	}
 }
 

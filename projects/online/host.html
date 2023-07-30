@@ -8,12 +8,14 @@
 		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
 		
 		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
-		<script src="../../assets/js/host.js"></script>
+		<script src="../../assets/js/online/host.js"></script>
+		<script src="../../assets/js/online/host-visual.js"></script>
+		<script src="../../assets/js/online/cookies.js"></script>
 			
 		<!-- FALLBACK LIBRARY CODE:
 		<script src="../../assets/js/peerjs.js></script>  -->
 		
-		<title>online games</title>
+		<title>online games - host</title>
 		
 	</head>
 
@@ -38,7 +40,7 @@
 
 			<button id="cancelclosebtn" class="copy-button" style="display: none" onClick="hideCloseGUI();">cancel</button>
 			<button id="destroybtnerr" class="copy-button" style="display: none" onClick="destroyRoom();">close room</button>
-			<button id="destroybtn" class="copy-button" style="display: none" onClick="destroyRoom();">close room</button> <br />
+			<button id="destroybtn" class="copy-button" style="display: none" onClick="destroyRoom();">close room</button> <br /> <br />
 			
 			<small id="waiting" style="display: none">waiting for other people to connect... do not refresh this page.</small>
 			<small id="log" style="display: none"></small>
@@ -56,7 +58,7 @@
 			</form>
 
 			<form onsubmit="saveChangeName(); return false;">
-				<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox">
+				<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox" maxlength="25">
 				<input type="submit" value="save" class="copy-button" id="savenamebtn" style="display: none">
 			</form>
 			
@@ -68,6 +70,16 @@
 			<div id="chatlog"></div>
 
 		</div>
+		
+		<script>
+			if(getCookie("username") != "") {
+				myUsername = getCookie("username");
+				console.log("cashed username:", myUsername);
+
+				document.getElementById("currentname").innerHTML = "current name: " + myUsername;
+				document.getElementById("namebox").value = myUsername;
+			}
+		</script>
 
 	</div> </body>
 </html>

@@ -1,9 +1,10 @@
 let playersConnected = 0;
-let roomID = "";
 const date = new Date();
 
 const chatMessages = [""];
 let myUsername = "server-host";
+
+const players = ["server-host"];
 
 // create the peer object
 var hostID = location.hash.substring(1);
@@ -20,10 +21,13 @@ peer.on('error', function(err) {
 	document.getElementById("idtext").innerHTML = '';
 	document.getElementById("players").innerHTML = '';
 	document.getElementById("destroybtnerr").style = '';
-	document.getElementById("destroybtn").style = 'display: none';
+	document.getElementById("chat").style = 'display: none';
+	document.getElementById("openclosebtn").style = 'display: none';
+	document.getElementById("hidebtn").style = 'display: none';
+	document.getElementById("copybtn").style = 'display: none';
 	
 	console.log(err);
-	if(err.type == "invalid-id") console.log("ID must start and end with an alphanumeric character (lower or upper case character or a digit). In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.");
+	if(err.type == "invalid-id") document.getElementById("roomid").innerHTML += "<br />ID must start and end with an alphanumeric character (lower or upper case character or a digit).<br style='line-height: .5'/>In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.";
 });
 
 // on the peer object being created...
@@ -82,6 +86,7 @@ peer.on('connection', function(tempconn) {
 
 	conn.on('close', function() {
 		printLog(conn.peer + ' has disconnected.');
+		console.log(conn.peer + ' has disconnected.');
 		playersConnected--;
 		updatePlayerText();
 	});
@@ -114,7 +119,7 @@ function destroyRoom() {
 		
 		setTimeout(function() {
 			window.location.href = "../online/";
-		}, 200);
+		}, 100);
 	}
 }
 
@@ -143,93 +148,6 @@ function sendChat() {
 		setTimeout(function() {
 			document.getElementById("sendbtn").innerHTML = "send";
 		}, 1000);
-	}
-}
-
-function toggleLog() {
-	var datalog = document.getElementById("log"); 
-	if(datalog.style.display == 'none') {
-		document.getElementById("waiting").style.display = 'block';
-		datalog.style.display = 'block';
-	} else {
-		document.getElementById("waiting").style.display = 'none';
-		datalog.style.display = 'none';
-	}
-}
-
-function showChangeName() {
-	document.getElementById("savenamebtn").style = "";
-	document.getElementById("namebox").style = "";
-	document.getElementById("namebox").select();
-	
-	document.getElementById("chatbox").style = "display: none";
-	document.getElementById("sendbtn").style = "display: none";
-	document.getElementById("changenamebtn").style = "display: none";
-	document.getElementById("currentname").style = "display: none";
-}
-
-function saveChangeName() {
-	
-	myUsername = document.getElementById("namebox").value;
-	document.getElementById("currentname").innerHTML = "current name: " + myUsername;
-	
-	document.getElementById("savenamebtn").style = "display: none";
-	document.getElementById("namebox").style = "display: none";
-	
-	document.getElementById("chatbox").style = "";
-	document.getElementById("sendbtn").style = "";
-	document.getElementById("changenamebtn").style = "";
-	document.getElementById("currentname").style = "";
-	
-	document.getElementById("chatbox").select();
-	
-}
-
-function copyRoomId() {
-	var copyText = document.getElementById("roomid");
-	navigator.clipboard.writeText(copyText.innerHTML);
-	document.getElementById("copybtn").innerHTML = 'copied!';
-	
-	setTimeout(function() {
-		document.getElementById("copybtn").innerHTML = "copy id";
-	}, 1000);
-}
-
-function showCloseGUI() {
-	document.getElementById("copybtn").style = 'display: none;';
-	document.getElementById("hidebtn").style = 'display: none;';
-	document.getElementById("openclosebtn").style = 'display: none;';
-	
-	document.getElementById("cancelclosebtn").style = '';
-	document.getElementById("destroybtn").style = '';
-	
-	document.getElementById("closemsg").innerHTML = 'are you sure? this will disconnect all players.';
-}
-
-function hideCloseGUI() {
-	document.getElementById("copybtn").style = '';
-	document.getElementById("hidebtn").style = '';
-	document.getElementById("openclosebtn").style = '';
-	
-	document.getElementById("cancelclosebtn").style = 'display: none;';
-	document.getElementById("destroybtn").style = 'display: none;';
-	document.getElementById("closemsg").innerHTML = '';
-	
-}
-
-function devtools() {
-	if(document.getElementById("devtools").style.display == 'none') {
-		document.getElementById("devtools").style = '';
-	} else {
-		document.getElementById("devtools").style = 'display: none';
-	}
-}
-
-function updatePlayerText() {
-	if(playersConnected == 1) {
-		document.getElementById("players").innerHTML = " || " + playersConnected + " player connected.";
-	} else {
-		document.getElementById("players").innerHTML = " || " + playersConnected + " players connected.";
 	}
 }
 

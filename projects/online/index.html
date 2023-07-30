@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
 		
 		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
-		<script src="../../assets/js/online.js"></script>
+		<script src="../../assets/js/online/online.js"></script>
+		<script src="../../assets/js/online/cookies.js"></script>
 			
 		<!-- FALLBACK LIBRARY CODE:
 		<script src="../../assets/js/peerjs.js></script>  -->
@@ -31,28 +32,37 @@
 		<button id="createbtn" class="main-button" onClick="showCreateGUI();">create room</button> 
 		<button id="joinbtn" class="main-button" onClick="showJoinGUI();">join room</button>
 		
-		<br /><br />
+		<br/><br/>
 		
 		<div id="create" style="display: none">
 			
 			<form onsubmit="return false;">
-				<input type="text" id="createid" class="input" placeholder="room id (optional)" value="">
+				<input type="text" id="createid" class="input" placeholder="room id (optional)" value="" maxlength="50">
 				<input type="submit" class="copy-button" onClick="goToHostRoom();" value="create">
 				<button class="copy-button" onclick="hideCreateGUI();">cancel</button>
 			</form>
 			
 			<br />
-			<small id="warning" style="display: none">note: anyone on the internet can join your game through this id. leaving the field blank will result in a more secure room.</small>
+			<small id="warning" style="display: none">note: anyone on the internet can join your game through your room's id.<br />leaving the field blank will result in a randomly generated (and more secure) id.</small>
 		
 		</div>
 		
 		<div id="join" style="display: none">
 			
-			<form onsubmit="return false;">
-				<input type="text" id="joinid" class="input" placeholder="room id" value="">
-				<input type="submit" value="connect" class="copy-button" onclick="goToPeerRoom();">
+			<form onsubmit="return false;" id="idform">
+				room id: <input type="text" class="input" id="joinid" maxlength="50">
+				<input type="submit" value="next" class="copy-button" onclick="showJoinNameGUI();">
 				<button class="copy-button" onclick="hideJoinGUI();">cancel</button>
 			</form>
+						
+			<form onsubmit="return false;" id="usernameform">
+				username: <input type="text" class="input" id="joinusername" maxlength="25">
+				<input type="submit" value="connect" class="copy-button" onclick="goToPeerRoom();">
+				<button class="copy-button" onclick="hideJoinNameGUI();">back</button>
+			</form>
+			
+			<br />
+			<small id="joinerror"></small>
 			
 		</div>
 		
