@@ -49,6 +49,12 @@ peer.on('open', function(id) {
 				document.getElementById("success").innerHTML = "connected to " + roomID + ".";
 				document.getElementById("chat").style = "";
 				console.log("connected to " + conn.peer + ".");
+				
+				// tell the server my username
+				var dataToSend = [
+					{ type: "establish", username: myUsername },
+				];
+				conn.send(dataToSend);
 			}
 
 		});

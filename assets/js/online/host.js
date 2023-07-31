@@ -1,10 +1,12 @@
 let playersConnected = 0;
 const date = new Date();
 
-const chatMessages = [""];
-let myUsername = "server-host";
+const chatMessages = [ ];
+let myUsername = 'server-host';
 
-const players = ["server-host"];
+//const players = [ 'server-host', '', '', '', '', '', '', '' ];
+const players = [ 'server-host', '', '' ];
+const usernames = [ 'server-host', '', '' ];
 
 // create the peer object
 var hostID = location.hash.substring(1);
@@ -46,13 +48,29 @@ peer.on('open', function(id) {
 });
 
 // on a connection being established...
-peer.on('connection', function(tempconn) {
+peer.on('connection', function(conn) {
 	
-	window.conn = tempconn;
+	console.log('player has joined. configuring connection object...');
 	
 	// open the chat window
 	document.getElementById("chat").style = '';
+	
+	// what happens when a player joins
+	conn.on('open', function() {
+		console.log('Connection established with ' + conn.peer);
+		document.getElementById("waiting").innerHTML = '';
+		printLog('connection established with ' + conn.peer);
 
+		var dataToSend = [
+			 { type: "establish", players: usernames },
+		];
+		conn.send(dataToSend);
+
+		playersConnected++;
+		updatePlayerText();
+	});
+	
+	// what happens when data is received
 	conn.on('data', function(data) {
 
 		console.log('Received data:', data);
@@ -65,31 +83,70 @@ peer.on('connection', function(tempconn) {
 			var dataToSend = [
 				{type: "chat", username: data[0].username, text: data[0].text },
 			];
-			conn.send(dataToSend);
+			sendData(0, dataToSend);
 			console.log('sent data:', dataToSend);
 		}
+		
+		if(data[0].type == 'establish') {
+			console.log('received data from client:', data[0].username);
+			usernames[peerToPlayerID(conn.peer)] = data[0].username;
+			document.getElementById('usernames').innerHTML += "|| " + data[0].username;
+		}
 	});
-
-	conn.on('open', function() {
-		console.log('Connection established with ' + conn.peer);
-		document.getElementById("waiting").innerHTML = '';
-		printLog('connection established with ' + conn.peer);
-
-		var dataToSend = [
-			 { type: "establish" },
-		];
-		conn.send(dataToSend);
-
-		playersConnected++;
-		updatePlayerText();
-	});
-
+	
+	// what happens when the client disconnects
 	conn.on('close', function() {
 		printLog(conn.peer + ' has disconnected.');
 		console.log(conn.peer + ' has disconnected.');
 		playersConnected--;
 		updatePlayerText();
 	});
+	
+	// check if a spot exists
+	var playerID = -1;
+	for(var i = 0; i < players.length; i++) {
+		if(players[i] == "") {
+			playerID = i;
+			players[i] = conn.peer;
+			break;
+		}
+	}
+	
+	// latch that player to their conn object
+	if(playerID != -1) {
+		
+		console.log('sending player info...');
+		
+		console.log('creating connection object for id of ' + playerID);
+			
+		if(playerID == 1) {
+			window.conn1 = conn;
+		}
+		
+		if(playerID == 2) {
+			window.conn2 = conn;
+		}
+		
+		if(playerID == 3) {
+			window.conn3 = conn;
+		}
+		
+		if(playerID == 4) {
+			window.conn4 = conn;
+		}
+		
+		if(playerID == 5) {
+			window.conn5 = conn;
+		}
+		
+	} else {
+		console.log("failed - server full");
+		
+		var dataToSend = [
+			{ type: "server-full" },
+		];
+		conn.send(dataToSend);
+	}
 
 });
 
@@ -139,7 +196,7 @@ function sendChat() {
 			{type: "chat", username: myUsername, text: text },
 		];
 
-		conn.send(dataToSend);
+		sendData(0, dataToSend);
 		console.log('sent data:', dataToSend);
 
 		document.getElementById("sendbtn").innerHTML = "sent!";
@@ -151,7 +208,41 @@ function sendChat() {
 	}
 }
 
-function printLog(text) {
-	var logElement = document.getElementById("log");
-	logElement.innerHTML += date.getHours() + ":"  + date.getMinutes() + ":" + date.getSeconds() + " - " + text + "<br />";
+function sendData(playerID, data) { 
+	
+	// 0 for all players, 1-5 for everyone else
+	
+	console.log('playerid:', playerID)
+
+	if(playerID == 1 || (playerID == 0 && typeof conn1 !== "undefined")) {
+		console.log('sending to peer 1...');
+		conn1.send(data);
+	}
+	
+	if(playerID == 2 || (playerID == 0 && typeof conn2 !== "undefined")) {
+		console.log('sending to peer 2...');
+		conn2.send(data);
+	}
+	
+	if(playerID == 3 || (playerID == 0 && typeof conn3 !== "undefined")) {
+		console.log('sending to peer 3...');
+		conn3.send(data);
+	}
+	
+	if(playerID == 4 || (playerID == 0 && typeof conn4 !== "undefined")) {
+		console.log('sending to peer 4...');
+		conn4.send(data);
+	}
+	
+	if(playerID == 5 || (playerID == 0 && typeof conn5 !== "undefined")) {
+		console.log('sending to peer 5...');
+		conn5.send(data);
+	}
+}
+
+function peerToPlayerID(peerID) {
+	for(var i = 0; i < players.length; i++) {
+		if(players[i] == peerID) return i;
+	}
+	return -1;
 }
