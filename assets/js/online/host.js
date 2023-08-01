@@ -4,9 +4,9 @@ const date = new Date();
 const chatMessages = [ ];
 let myUsername = 'server-host';
 
-//const players = [ 'server-host', '', '', '', '', '', '', '' ];
-const players = [ 'server-host', '', '' ];
-const usernames = [ 'server-host', '', '' ];
+const players = [ 'server-host', '', '', '', '', '', '', '' ];
+//const players = [ 'server-host', '', '' ];
+const usernames = [ 'server-host', '', '', '', '', '', '', '' ];
 
 // create the peer object
 var hostID = location.hash.substring(1);
