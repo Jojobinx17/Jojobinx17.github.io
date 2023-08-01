@@ -23,7 +23,7 @@ peer.on('error', function(err) {
 	document.getElementById("idtext").innerHTML = '';
 	document.getElementById("players").innerHTML = '';
 	document.getElementById("destroybtnerr").style = '';
-	document.getElementById("chat").style = 'display: none';
+	document.getElementById("main").style = 'display: none';
 	document.getElementById("openclosebtn").style = 'display: none';
 	document.getElementById("hidebtn").style = 'display: none';
 	document.getElementById("copybtn").style = 'display: none';
@@ -55,19 +55,41 @@ peer.on('connection', function(conn) {
 	// open the chat window
 	document.getElementById("chat").style = '';
 	
+	// check if a spot exists
+	var playerID = -1;
+	for(var i = 0; i < players.length; i++) {
+		if(players[i] == "") {
+			playerID = i;
+			players[i] = conn.peer;
+			break;
+		}
+	}
+	
 	// what happens when a player joins
 	conn.on('open', function() {
 		console.log('Connection established with ' + conn.peer);
 		document.getElementById("waiting").innerHTML = '';
 		printLog('connection established with ' + conn.peer);
-
-		var dataToSend = [
-			 { type: "establish", players: usernames },
-		];
+		
+		if(playerID != -1) {
+			
+			// if a spot exists
+			var dataToSend = [
+				 { type: "establish", players: usernames },
+			];
+			
+			playersConnected++;
+			updatePlayerText();
+			
+		} else {
+			
+			// if no spot exists
+			var dataToSend = [
+				{ type: "error", message: "server-full" },
+			];
+		}
+		
 		conn.send(dataToSend);
-
-		playersConnected++;
-		updatePlayerText();
 	});
 	
 	// what happens when data is received
@@ -90,29 +112,29 @@ peer.on('connection', function(conn) {
 		if(data[0].type == 'establish') {
 			console.log('received data from client:', data[0].username);
 			usernames[peerToPlayerID(conn.peer)] = data[0].username;
-			document.getElementById('usernames').innerHTML += "|| " + data[0].username;
+			
+			updateUsernameVisuals();
 		}
 	});
 	
 	// what happens when the client disconnects
 	conn.on('close', function() {
-		printLog(conn.peer + ' has disconnected.');
-		console.log(conn.peer + ' has disconnected.');
-		playersConnected--;
-		updatePlayerText();
+		if(peerToPlayerID(conn.peer) != -1) {
+			printLog(conn.peer + ' has disconnected.');
+			console.log(conn.peer + ' has disconnected.');
+			playersConnected--;
+			updatePlayerText();
+			
+			usernames[peerToPlayerID(conn.peer)] = "";
+			players[peerToPlayerID(conn.peer)] = "";
+			updateUsernameVisuals();
+			
+		} else {
+			console.log('disconnect by non-player');
+		}
 	});
 	
-	// check if a spot exists
-	var playerID = -1;
-	for(var i = 0; i < players.length; i++) {
-		if(players[i] == "") {
-			playerID = i;
-			players[i] = conn.peer;
-			break;
-		}
-	}
-	
-	// latch that player to their conn object
+	// assign that player to their global conn object
 	if(playerID != -1) {
 		
 		console.log('sending player info...');
@@ -140,12 +162,7 @@ peer.on('connection', function(conn) {
 		}
 		
 	} else {
-		console.log("failed - server full");
-		
-		var dataToSend = [
-			{ type: "server-full" },
-		];
-		conn.send(dataToSend);
+		console.log("failed - server full. sending error message...");
 	}
 
 });
@@ -153,31 +170,52 @@ peer.on('connection', function(conn) {
 
 function destroyRoom() {
 	
-	if(window.peer) {
+	if(window.peer1) {
 		
 		document.getElementById("idtext").innerHTML = 'closing room...';
 		
-		peer.destroy();
-		delete peer;
-		selected = false;
-
-		document.getElementById("roomid").innerHTML = '';
+		peer1.destroy();
+		delete peer1;
 		
-		document.getElementById("destroybtn").style = 'display: none;';
-		document.getElementById("hidebtn").style = 'display: none;';
-		document.getElementById("cancelclosebtn").style = 'display: none;';
+		if(window.peer2){
+			peer2.destroy();
+			delete peer2;
+		}
 		
-		document.getElementById("closemsg").innerHTML = '';
-		document.getElementById("waiting").innerHTML = '';
-		document.getElementById("log").innerHTML = '';
+		if(window.peer3){
+			peer3.destroy();
+			delete peer3;
+		}
 		
-		document.getElementById("copybtn").style = 'display: none;';
-		document.getElementById("copybtn").innerHTML = 'copy id';
+		if(window.peer4){
+			peer4.destroy();
+			delete peer4;
+		}
 		
-		setTimeout(function() {
-			window.location.href = "../online/";
-		}, 100);
+		if(window.peer5){
+			peer5.destroy();
+			delete peer5;
+		}
 	}
+		
+	selected = false;
+
+	document.getElementById("roomid").innerHTML = '';
+
+	document.getElementById("destroybtn").style = 'display: none;';
+	document.getElementById("hidebtn").style = 'display: none;';
+	document.getElementById("cancelclosebtn").style = 'display: none;';
+
+	document.getElementById("closemsg").innerHTML = '';
+	document.getElementById("waiting").innerHTML = '';
+	document.getElementById("log").innerHTML = '';
+
+	document.getElementById("copybtn").style = 'display: none;';
+	document.getElementById("copybtn").innerHTML = 'copy id';
+
+	setTimeout(function() {
+		window.location.href = "../online/";
+	}, 100);
 }
 
 function sendChat() {

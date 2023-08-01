@@ -56,6 +56,10 @@ peer.on('open', function(id) {
 				];
 				conn.send(dataToSend);
 			}
+			
+			if(data[0].type == 'error') {
+				window.location.href = "error.html#" + data[0].message; 
+			}
 
 		});
 		

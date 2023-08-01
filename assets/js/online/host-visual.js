@@ -36,6 +36,10 @@ function saveChangeName() {
 	document.getElementById("currentname").style = "";
 	
 	setCookie("username", myUsername, 7);
+	
+	usernames[0] = myUsername;
+	updateUsernameVisuals();
+	
 	document.getElementById("chatbox").select();
 	
 }
@@ -91,4 +95,16 @@ function updatePlayerText() {
 function printLog(text) {
 	var logElement = document.getElementById("log");
 	logElement.innerHTML += date.getHours() + ":"  + date.getMinutes() + ":" + date.getSeconds() + " - " + text + "<br />";
+}
+
+function updateUsernameVisuals() {
+	document.getElementById('usernames').innerHTML = "";
+	for(i in usernames) {
+		
+		if(usernames[i] == myUsername && usernames[i] != "") {
+			document.getElementById('usernames').innerHTML += '<div class="user">' + usernames[i] + ' (me)</div>';
+		} else if (usernames[i] != "") {
+			document.getElementById('usernames').innerHTML += '<div class="user">' + usernames[i] + '</div>';
+		}
+	}
 }

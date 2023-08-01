@@ -1,10 +1,30 @@
-<!doctype html>
+ <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-</head>
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">	
+		<link rel="stylesheet" type="text/css" href="../../assets/css/lan.css">
+		
+		<title>online games - client</title>
+	</head>
 
-<body>
-</body>
+	<body> <div align="center">
+	
+		<p class="title">online games (client)</p>
+		<hr class="headerbar">
+
+		<a id="message" style="text-decoration: none">an error occured.</a>
+		<button class="copy-button" onClick="window.location.href = '../online/'">disconnect</button>
+		
+		<script>
+			let error = location.hash.substring(1);
+			let message = document.getElementById("message");
+			
+			if(error == 'server-full') message.innerHTML = 'error - server full!'; 
+		</script>
+		
+		
+	</div> </body>
 </html>

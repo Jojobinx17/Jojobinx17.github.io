@@ -55,7 +55,9 @@
 		
 		<div class="buffer"></div>
 		
-		<div id="chat" style="display: none">
+		<div id="main">
+		
+		<div id="chat">
 	
 			<br />
 			<form onsubmit="sendChat(); return false;">
@@ -76,6 +78,8 @@
 			<div id="chatlog"></div>
 
 		</div>
+			
+		</div>
 		
 		<script>
 			if(getCookie("username") != "") {
@@ -86,8 +90,10 @@
 				document.getElementById("namebox").value = myUsername;
 				
 				usernames[0] = myUsername;
+				
+				updateUsernameVisuals();
 			}
 		</script>
-
+	
 	</div> </body>
 </html>
