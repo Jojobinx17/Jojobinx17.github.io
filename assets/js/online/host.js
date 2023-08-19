@@ -357,6 +357,9 @@ setInterval(function() {
 				usernames[peerToPlayerID(tempConn.peer)] = "";
 				players[peerToPlayerID(tempConn.peer)] = "";
 				updateUsernameVisuals();
+				
+				// reset for the next person to join
+				pings[i] = true;
 
 			}
 		}
