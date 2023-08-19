@@ -9,6 +9,8 @@ const chatMessages = [""];
 const usernames = [ 'server-host', '', '', '', '', ''];
 let playersConnected = 0;
 
+let failPings = false;
+
 // error handling
 peer.on('error', function(err) { 
 	console.log(err);
@@ -81,7 +83,7 @@ peer.on('open', function(id) {
 			}
 			
 			if(data[0].type == 'serverping') {
-				conn.send([{ type: "serverping", peerID: peer.id}] );
+				if(failPings == false) conn.send([{ type: "serverping", peerID: peer.id}] );
 			}
 			
 			if(data[0].type == 'disconnect') {
