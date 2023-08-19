@@ -2,9 +2,12 @@
 // create the peer object
 peer = new Peer();
 let roomID = location.hash.substring(1);
+pingReceived = true;
 
 let myUsername = "unnamed-user";
 const chatMessages = [""];
+const usernames = [ 'server-host', '', '', '', '', ''];
+let playersConnected = 0;
 
 // error handling
 peer.on('error', function(err) { 
@@ -34,8 +37,14 @@ peer.on('open', function(id) {
 		
 		// prep to receive data
 		conn.on('data', function(data) {
-			console.log('Received data: ', data);
-			console.log('type', data[0].type);
+			
+			if(data[0].type != 'ping' && data[0].type != 'serverping') {
+				console.log('Received data: ', data);
+				console.log('type', data[0].type);
+			} else {
+				console.log('Received data: ', data);
+				console.log('type', data[0].type);			
+			}
 			
 			if(data[0].type == 'chat') {
 				console.log("chat message received.");
@@ -50,6 +59,8 @@ peer.on('open', function(id) {
 				document.getElementById("chat").style = "";
 				console.log("connected to " + conn.peer + ".");
 				
+				document.getElementById("playersconnected").innerHTML = data[0].players + " players connected.";
+				
 				// tell the server my username
 				var dataToSend = [
 					{ type: "establish", username: myUsername },
@@ -60,7 +71,22 @@ peer.on('open', function(id) {
 			if(data[0].type == 'error') {
 				window.location.href = "error.html#" + data[0].message; 
 			}
-
+			
+			if(data[0].type == 'playercount') {
+				document.getElementById("playersconnected").innerHTML = data[0].number + " players connected.";
+			}
+			
+			if(data[0].type == 'ping') {
+				pingReceived = true;
+			}
+			
+			if(data[0].type == 'serverping') {
+				conn.send([{ type: "serverping", peerID: peer.id}] );
+			}
+			
+			if(data[0].type == 'disconnect') {
+				if(data[0].reason == 'server-ping-failed') window.location.href = "error.html#disconnect-server-ping"; 
+			}
 		});
 		
 		conn.on('error', function(err) { 
@@ -103,15 +129,14 @@ function clientDisconnect() {
 	window.location.href = "index.html";
 }
 
-//setInterval(function() {
-//	if(!conn.peerConnection) {
-//		console.log("ping failed");
-//		document.getElementById("chat").style.display = "none";
-//		document.getElementById("success").innerHTML = "the server has been disconnected.";
-//		document.getElementById("disconnectbtn").innerHTML = "exit";
-//	} else {
-//		console.log("ping success");
-//	}
-//}, 5000);
-//
+setInterval(function() {
+	if(pingReceived == true) {	
+		var dataToSend = [ { type: "ping" } ];
+		conn.send(dataToSend);
+		pingReceived = false;
+	} else {
+		window.location.href = "error.html#connection"; 
+	}
+}, 5000);
+
 

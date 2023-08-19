@@ -1,12 +1,13 @@
-let playersConnected = 0;
+let playersConnected = 1;
 const date = new Date();
 
 const chatMessages = [ ];
 let myUsername = 'server-host';
 
-const players = [ 'server-host', '', '', '', '', '', '', '' ];
-//const players = [ 'server-host', '', '' ];
-const usernames = [ 'server-host', '', '', '', '', '', '', '' ];
+const players = [ 'server-host', '', '', '', '', ''];
+const usernames = [ 'server-host', '', '', '', '', ''];
+
+const pings = [ true, true, true, true, true, true ];
 
 // create the peer object
 var hostID = location.hash.substring(1);
@@ -18,18 +19,24 @@ if(hostID != '') {
 }
 
 peer.on('error', function(err) {
-	document.getElementById("roomid").innerHTML = "ERROR - " + err.type + ". see console for details.";
 	
-	document.getElementById("idtext").innerHTML = '';
-	document.getElementById("players").innerHTML = '';
-	document.getElementById("destroybtnerr").style = '';
-	document.getElementById("main").style = 'display: none';
-	document.getElementById("openclosebtn").style = 'display: none';
-	document.getElementById("hidebtn").style = 'display: none';
-	document.getElementById("copybtn").style = 'display: none';
+	setTimeout(function() {
+			document.getElementById("roomid").innerHTML = "ERROR - " + err.type + ". see console for details.";
 	
-	console.log(err);
-	if(err.type == "invalid-id") document.getElementById("roomid").innerHTML += "<br />ID must start and end with an alphanumeric character (lower or upper case character or a digit).<br style='line-height: .5'/>In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.";
+			document.getElementById("idtext").innerHTML = '';
+			document.getElementById("players").innerHTML = '';
+			document.getElementById("destroybtnerr").style = '';
+			document.getElementById("main").style = 'display: none';
+			document.getElementById("openclosebtn").style = 'display: none';
+			document.getElementById("hidebtn").style = 'display: none';
+			document.getElementById("copybtn").style = 'display: none';
+
+			console.log(err);
+			if(err.type == "invalid-id") document.getElementById("roomid").innerHTML += "<br />ID must start and end with an alphanumeric character (lower or upper case character or a digit).<br style='line-height: .5'/>In the middle of the ID spaces, dashes (-) and underscores (_) are allowed.";
+		
+	}, 100);
+	
+
 });
 
 // on the peer object being created...
@@ -74,13 +81,15 @@ peer.on('connection', function(conn) {
 		if(playerID != -1) {
 			
 			// if a spot exists
-			var dataToSend = [
-				 { type: "establish", players: usernames },
-			];
-			
 			playersConnected++;
-			updatePlayerText();
 			
+			var dataToSend = [
+				 { type: "establish", players: playersConnected },
+			];
+		
+			updatePlayerText();
+			sendData(0, [{type: "playercount", number: playersConnected}]);
+
 		} else {
 			
 			// if no spot exists
@@ -106,24 +115,41 @@ peer.on('connection', function(conn) {
 				{type: "chat", username: data[0].username, text: data[0].text },
 			];
 			sendData(0, dataToSend);
-			console.log('sent data:', dataToSend);
 		}
 		
 		if(data[0].type == 'establish') {
 			console.log('received data from client:', data[0].username);
 			usernames[peerToPlayerID(conn.peer)] = data[0].username;
-			
 			updateUsernameVisuals();
+		}
+		
+		if(data[0].type == 'namechange') {
+			console.log('received data from client:', data[0].username);
+			console.log(data[0].username, 'has changed their name to', data[0].new);
+			usernames[peerToPlayerID(conn.peer)] = data[0].new;
+			updateUsernameVisuals();
+		}
+		
+		if(data[0].type == 'ping') {
+			var dataToSend = [ { type: "ping" } ];
+			conn.send(dataToSend);
+		}
+		
+		if(data[0].type == 'serverping') {
+			pings[peerToPlayerID(data[0].peerID)] = true;
 		}
 	});
 	
 	// what happens when the client disconnects
 	conn.on('close', function() {
 		if(peerToPlayerID(conn.peer) != -1) {
+			
 			printLog(conn.peer + ' has disconnected.');
 			console.log(conn.peer + ' has disconnected.');
+			
 			playersConnected--;
 			updatePlayerText();
+			sendData(0, [{type: "playercount", number: playersConnected}]);
 			
 			usernames[peerToPlayerID(conn.peer)] = "";
 			players[peerToPlayerID(conn.peer)] = "";
@@ -250,32 +276,36 @@ function sendData(playerID, data) {
 	
 	// 0 for all players, 1-5 for everyone else
 	
-	console.log('playerid:', playerID)
+	var str = 'sending to peer';
 
 	if(playerID == 1 || (playerID == 0 && typeof conn1 !== "undefined")) {
-		console.log('sending to peer 1...');
+		str += ' 1,';
 		conn1.send(data);
 	}
 	
 	if(playerID == 2 || (playerID == 0 && typeof conn2 !== "undefined")) {
-		console.log('sending to peer 2...');
+		str += ' 2,';
 		conn2.send(data);
 	}
 	
 	if(playerID == 3 || (playerID == 0 && typeof conn3 !== "undefined")) {
-		console.log('sending to peer 3...');
+		str += ' 3,';
 		conn3.send(data);
 	}
 	
 	if(playerID == 4 || (playerID == 0 && typeof conn4 !== "undefined")) {
-		console.log('sending to peer 4...');
+		str += ' 4,';
 		conn4.send(data);
 	}
 	
 	if(playerID == 5 || (playerID == 0 && typeof conn5 !== "undefined")) {
-		console.log('sending to peer 5...');
+		str += ' 5,';
 		conn5.send(data);
 	}
+	
+	str = str.substring(0, str.length - 1);
+	console.log(str + '... sent data:', data);
+
 }
 
 function peerToPlayerID(peerID) {
@@ -284,3 +314,52 @@ function peerToPlayerID(peerID) {
 	}
 	return -1;
 }
+
+function peerToConnObject(peerID) {
+	for(var i = 0; i < players.length; i++) {
+		if(players[i] == peerID) {
+			if(i == 0) return 0;
+			if(i == 1) return conn1;
+			if(i == 2) return conn2;
+			if(i == 3) return conn3;
+			if(i == 4) return conn4;
+			if(i == 5) return conn5;
+		}
+	}
+	return -1;
+}
+
+// pings
+setInterval(function() {
+	for(var i = 1; i < playersConnected; i++) {
+		if(pings[i] == true) {
+			
+			var dataToSend = [ { type: "serverping" } ];
+			var tempConn = peerToConnObject(players[i]);
+			tempConn.send(dataToSend);
+			pings[i] = false;
+			
+		} else {
+			
+			console.log('ping ' + i + ' failed.');
+			var tempConn = peerToConnObject(players[i]);
+			tempConn.send([{ type: 'disconnect', reason: 'server-ping-failed' }]);
+			
+			if(peerToPlayerID(tempConn.peer) != -1) {
+
+				printLog(tempConn.peer + ' has disconnected.');
+				console.log(tempConn.peer + ' has disconnected.');
+
+				playersConnected--;
+				updatePlayerText();
+				sendData(0, [{type: "playercount", number: playersConnected}]);
+
+				usernames[peerToPlayerID(tempConn.peer)] = "";
+				players[peerToPlayerID(tempConn.peer)] = "";
+				updateUsernameVisuals();
+
+			}
+		}
+	}
+}, 5000);
+

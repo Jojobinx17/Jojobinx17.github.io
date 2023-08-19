@@ -86,9 +86,9 @@ function devtools() {
 
 function updatePlayerText() {
 	if(playersConnected == 1) {
-		document.getElementById("players").innerHTML = " || " + playersConnected + " player connected.";
+		document.getElementById("players").innerHTML = " || " + playersConnected + " player in the room.";
 	} else {
-		document.getElementById("players").innerHTML = " || " + playersConnected + " players connected.";
+		document.getElementById("players").innerHTML = " || " + playersConnected + " players in the room.";
 	}
 }
 

@@ -23,6 +23,8 @@
 			let message = document.getElementById("message");
 			
 			if(error == 'server-full') message.innerHTML = 'error - server full!'; 
+			if(error == 'connection') message.innerHTML = 'error - connection failed.'; 
+			if(error == 'disconnect-server-ping') message.innerHTML = 'error - the server was unable to keep up the connection.'; 
 		</script>
 		
 		
