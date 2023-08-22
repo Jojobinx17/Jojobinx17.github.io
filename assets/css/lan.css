@@ -1,5 +1,71 @@
 /* CSS Document */
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+/*	overflow: hidden; */
+}
+
+.column-games {
+  float: left;
+  width: 50%;
+  justify-content: center;
+	
+  min-width: 400px;
+  
+  text-align: center;
+  position: relative;
+  
+}
+
+.column-chat {
+  float: left;
+  width: 50%;
+	
+  min-width: 400px;
+  
+  position: relative;
+  text-align: center;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column-header {
+	font-size: 35px;
+	width: 80%;
+	
+	margin: 10%;
+	position: relative;
+    text-align: center;
+}
+
+.chat-thread {
+	width: 80%; 
+	height: 400px; 
+	overflow: auto;
+	text-align: left;
+	
+	position: relative;
+	
+	border: 2px solid white;
+	margin: 50px 10%;
+	padding: 30px 20px;
+
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+}
+
+.chat-thread::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 .main-button {
 	border: 2px solid #A8A8A8; 
 	border-radius: 10px; 
@@ -82,9 +148,15 @@
 }
 
 .chat-message {
-	border: 2px solid white;
-	padding: 20px;
-	margin: 20px 30%;
+/*	border: 2px solid white;*/
+	padding: 0px;
+	margin: 0px 5%;
+	word-wrap: break-word;
+}
+
+.chat-time {
+	color: dimgray;
+	font-size: 8;
 }
 
 .user {
@@ -93,5 +165,28 @@
 	margin: 20px 30%;
 }
 
+.bar-button {
+	border: 2px solid #A8A8A8;
+	border-radius: 10px; 
+	padding: 10px 30px;
+	background-color: #121212;
+    font-family: consola;
+	font-size: 28px;
+    color: white;
+	line-height: 1.5;
+	margin: 30px 0px;
+	width: 85%;
+		
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.bar-button:hover {
+	background-color: #333;
+}
 
 

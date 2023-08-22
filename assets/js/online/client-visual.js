@@ -38,3 +38,13 @@ function saveChangeName() {
 		console.log('sent data:', dataToSend);
 	}
 }
+
+function hideHeaderbar() {
+	document.getElementById("header").style.display = 'none';
+}
+
+function showHeaderbar() {
+	document.getElementById("header").style.display = '';
+}
+
+

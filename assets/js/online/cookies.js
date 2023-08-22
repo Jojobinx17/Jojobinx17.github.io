@@ -22,3 +22,23 @@ function getCookie(cname) {
   }
   return "";
 }
+
+function getTime() { // Returns a string with the current formatted 12-hour time.
+	
+	var currentTime = new Date();
+	var currentHour = currentTime.getHours();
+	var currentMinute = currentTime.getMinutes();
+
+	var period = (currentHour < 12) ? "AM" : "PM";
+	currentHour = (currentHour % 12) || 12; // Map 0 to 12
+
+	if (currentHour < 10) {
+	  currentHour = "0" + currentHour;
+	}
+	
+	if (currentMinute < 10) {
+	  currentMinute = "0" + currentMinute;
+	}
+	
+	return currentHour + ":" + currentMinute;
+}

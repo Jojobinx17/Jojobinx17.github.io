@@ -19,38 +19,61 @@
 	</head>
 
 	<body> <div align="center">
+		
+		<div id="header">
 	
-		<p class="title">online games (client)</p>
-		<hr class="headerbar">
+			<p class="title">online games (client)</p>
+			<hr class="headerbar">
 
-		<a id="success" style="text-decoration: none">creating peer object...</a>
-		<button id="disconnectbtn" class="copy-button" onClick="clientDisconnect();">disconnect</button>
+			<a id="success" style="text-decoration: none">creating peer object...</a>
+			<button id="disconnectbtn" class="copy-button" onClick="clientDisconnect();">disconnect</button>
+
+			<p id="errors"></p>
+			<button id="disconnectbtnerr" class="copy-button" onClick="clientDisconnect();" style="display: none">disconnect</button>
+			<button id="fping" class="copy-button" style="display: none" onClick="failPings = true; document.getElementById('fping').innerHTML = 'fail pings (active)'">fail pings</button>
 		
-		<p id="errors"></p>
-		<button id="disconnectbtnerr" class="copy-button" onClick="clientDisconnect();" style="display: none">disconnect</button>
-		<button id="fping" class="copy-button" onClick="failPings = true; document.getElementById('fping').innerHTML = 'fail pings (active)'">fail pings</button>
+		</div>	
 		
-		<p id="playersconnected"></p>
-		
-		<div id="chat" style="display: none">
+		<div class="row" id="main-content" style="display: none">
 			
-			<br />
-			<form onsubmit="sendChat(); return false;">
-				<input type="text" class="input" placeholder="send a chat..." id="chatbox">
-				<input type="submit" class="copy-button" id="sendbtn" value="send">
-			</form>
+			<div class="column-chat">
+
+				<div id="chat">
+					
+					<div class="column-header">chat<br><hr></div> 
+					
+					<form onsubmit="sendChat(); return false;">
+						<input type="text" class="input" placeholder="send a chat..." id="chatbox">
+						<input type="submit" class="copy-button" id="sendbtn" value="send">
+					</form>
+
+					<form onsubmit="saveChangeName(); return false;">
+						<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox" maxlength="25">
+						<input type="submit" value="save" class="copy-button" id="savenamebtn" style="display: none">
+					</form>
+
+					<small id="currentname">current name: unnamed-user</small>
+					<button class="copy-button" id="changenamebtn" onClick="showChangeName();">change</button>
+					
+					<div id="chatlog" class="chat-thread">
+						<p id="emptychatmsg" style="color: dimgray; text-align: center;">the chat thread is empty.</p>
+					</div>
+					
+				</div>
+				
+			</div>
 			
-			<form onsubmit="saveChangeName(); return false;">
-				<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox" maxlength="25">
-				<input type="submit" value="save" class="copy-button" id="savenamebtn" style="display: none">
-			</form>
-		
-			<small id="currentname">current name: unnamed-user</small>
-			<button class="copy-button" id="changenamebtn" onClick="showChangeName();">change</button>
+		<div class="column-games">
 			
-			<p class="title" id="chattitle"></p> 
+			<div class="column-header">players<br><hr></div> 
+			<p id="playersconnected" class="user"></p>
 			
-			<div id="chatlog"></div>
+			<div class="column-header">games<br><hr></div>
+			<p style="color: dimgray; position: relative; top: -70px">to be added!</p>
+			
+		</div>
+			
+		<button id="big-disconnect" class="bar-button" onClick="clientDisconnect();">disconnect</button>
 			
 		</div>
 		

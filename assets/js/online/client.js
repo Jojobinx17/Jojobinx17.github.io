@@ -18,7 +18,9 @@ peer.on('error', function(err) {
 	document.getElementById("disconnectbtnerr").style = "";
 	document.getElementById("success").style = 'display: none;';
 	document.getElementById("disconnectbtn").style = "display: none;";
-	document.getElementById("chat").style = "display: none;";
+	document.getElementById("main-content").style = "display: none;";
+	document.getElementById("big-disconnect").style = "display: none;";
+	showHeaderbar();
 });
 
 // on the creation of the peer object...
@@ -50,16 +52,23 @@ peer.on('open', function(id) {
 			
 			if(data[0].type == 'chat') {
 				console.log("chat message received.");
+				
+				document.getElementById('emptychatmsg').innerHTML = 'end of chat.';
+				
 				chatMessages[chatMessages.length - 1] = data[0].username + ': ' + data[0].text;
-				document.getElementById('chatlog').innerHTML = "<p class=\"chat-message\">" + chatMessages[chatMessages.length - 1] + "</p>" + document.getElementById('chatlog').innerHTML;
+				document.getElementById('chatlog').innerHTML = 
+					"<p class=\"chat-message\"><small style=\"color: dimgray; font-size: 8; text-decoration: none\">" + getTime() + " - </small>" +  // GET THIS TO WORK WITH THE GETTIME() FUNCTION
+					chatMessages[chatMessages.length - 1] + 
+					"</p>" + document.getElementById('chatlog').innerHTML;
+				
 				chatMessages.length = chatMessages.length + 1;
-				document.getElementById("chattitle").innerHTML = "- chat -";
 			}
 
 			if(data[0].type == 'establish') {
 				document.getElementById("success").innerHTML = "connected to " + roomID + ".";
-				document.getElementById("chat").style = "";
+				document.getElementById("main-content").style = "";
 				console.log("connected to " + conn.peer + ".");
+				hideHeaderbar();
 				
 				document.getElementById("playersconnected").innerHTML = data[0].players + " players connected.";
 				
