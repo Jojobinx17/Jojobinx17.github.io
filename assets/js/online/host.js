@@ -1,11 +1,14 @@
 let playersConnected = 1;
 const date = new Date();
+let currentGame = -1;
+let role = -1;
 
 const chatMessages = [ ];
 let myUsername = 'server-host';
 
 const players = [ 'server-host', '', '', '', '', ''];
 const usernames = [ 'server-host', '', '', '', '', ''];
+const roles = [ 1, 1, 1, 1, 1, 1 ];
 
 const pings = [ true, true, true, true, true, true ];
 
@@ -47,6 +50,8 @@ peer.on('open', function(id) {
 	document.getElementById("copybtn").style = '';
 	document.getElementById("openclosebtn").style = '';
 	document.getElementById("hidebtn").style = '';
+	
+	document.getElementById("main").style = '';
 
 	document.getElementById("copybtn").innerHTML = 'copy id';
 
@@ -103,14 +108,14 @@ peer.on('connection', function(conn) {
 	
 	// what happens when data is received
 	conn.on('data', function(data) {
-
-		console.log('Received data:', data);
+		
+		if(data[0].type != 'ping' && data[0].type != 'serverping') console.log('Received data:', data);
 
 		if(data[0].type == 'chat') {
 			chatMessages[chatMessages.length - 1] = data[0].username + ': ' + data[0].text;
-			document.getElementById('chatlog').innerHTML = "<p class=\"chat-message\">" + chatMessages[chatMessages.length - 1] + "</p>" + document.getElementById('chatlog').innerHTML;					chatMessages.length = chatMessages.length + 1;
-			document.getElementById("chattitle").innerHTML = "- chat -";
-
+			document.getElementById('chatlog').innerHTML = "<p class=\"chat-message\">" + chatMessages[chatMessages.length - 1] + "</p>" + document.getElementById('chatlog').innerHTML;
+			chatMessages.length = chatMessages.length + 1;
+			
 			var dataToSend = [
 				{type: "chat", username: data[0].username, text: data[0].text },
 			];
@@ -137,6 +142,12 @@ peer.on('connection', function(conn) {
 		
 		if(data[0].type == 'serverping') {
 			pings[peerToPlayerID(data[0].peerID)] = true;
+		}
+		
+		if(data[0].type == 'gamereq') {
+			var pid = peerToPlayerID(conn.peer);
+			console.log('player', pid, 'has sent a game request with an id of', data[0].game);
+			addToGameReqs(conn.peer, data[0].game);
 		}
 	});
 	
@@ -200,8 +211,10 @@ function destroyRoom() {
 		
 		document.getElementById("idtext").innerHTML = 'closing room...';
 		
-		peer1.destroy();
-		delete peer1;
+		if(window.peer1){
+			peer1.destroy();
+			delete peer1;
+		}
 		
 		if(window.peer2){
 			peer2.destroy();
@@ -254,14 +267,12 @@ function sendChat() {
 		document.getElementById('chatlog').innerHTML = "<p class=\"chat-message\">" + chatMessages[chatMessages.length - 1] + "</p>" + document.getElementById('chatlog').innerHTML;
 
 		chatMessages.length = chatMessages.length + 1;
-		document.getElementById("chattitle").innerHTML = "- chat -";
 
 		var dataToSend = [
 			{type: "chat", username: myUsername, text: text },
 		];
 
 		sendData(0, dataToSend);
-		console.log('sent data:', dataToSend);
 
 		document.getElementById("sendbtn").innerHTML = "sent!";
 		document.getElementById("chatbox").value = "";
@@ -276,35 +287,46 @@ function sendData(playerID, data) {
 	
 	// 0 for all players, 1-5 for everyone else
 	
-	var str = 'sending to peer';
+	// for debugging:
+	// console.log('sending data to player id', playerID, ':', data);
+	
+	if(playersConnected > 1) {
+	
+		var str = 'sending to peer';
 
-	if(playerID == 1 || (playerID == 0 && typeof conn1 !== "undefined")) {
-		str += ' 1,';
-		conn1.send(data);
+		if(playerID == 1 || (playerID == 0 && typeof conn1 !== "undefined")) {
+			str += ' 1,';
+			conn1.send(data);
+		}
+
+		if(playerID == 2 || (playerID == 0 && typeof conn2 !== "undefined")) {
+			str += ' 2,';
+			conn2.send(data);
+		}
+
+		if(playerID == 3 || (playerID == 0 && typeof conn3 !== "undefined")) {
+			str += ' 3,';
+			conn3.send(data);
+		}
+
+		if(playerID == 4 || (playerID == 0 && typeof conn4 !== "undefined")) {
+			str += ' 4,';
+			conn4.send(data);
+		}
+
+		if(playerID == 5 || (playerID == 0 && typeof conn5 !== "undefined")) {
+			str += ' 5,';
+			conn5.send(data);
+		}
+		
+		if(str.length != 15) {
+			str = str.substring(0, str.length - 1);
+			console.log(str + '... sent data:', data);			
+		} else {
+			console.log('no data was sent.');
+		}
+
 	}
-	
-	if(playerID == 2 || (playerID == 0 && typeof conn2 !== "undefined")) {
-		str += ' 2,';
-		conn2.send(data);
-	}
-	
-	if(playerID == 3 || (playerID == 0 && typeof conn3 !== "undefined")) {
-		str += ' 3,';
-		conn3.send(data);
-	}
-	
-	if(playerID == 4 || (playerID == 0 && typeof conn4 !== "undefined")) {
-		str += ' 4,';
-		conn4.send(data);
-	}
-	
-	if(playerID == 5 || (playerID == 0 && typeof conn5 !== "undefined")) {
-		str += ' 5,';
-		conn5.send(data);
-	}
-	
-	str = str.substring(0, str.length - 1);
-	console.log(str + '... sent data:', data);
 
 }
 
@@ -313,6 +335,21 @@ function peerToPlayerID(peerID) {
 		if(players[i] == peerID) return i;
 	}
 	return -1;
+}
+
+function peerToUsername(peerID) {
+	var playerID = peerToPlayerID(peerID);
+	if(playerID != -1) return usernames[playerID]; 
+	return '';
+}
+
+function usernameToPlayerID(u) {
+	for(var i=0; i < usernames.length; i++) {
+		if(usernames[i] == u) {
+			return i + 1;
+		}
+		return -1;
+	}
 }
 
 function peerToConnObject(peerID) {
@@ -329,19 +366,148 @@ function peerToConnObject(peerID) {
 	return -1;
 }
 
+
+
+
+
+
+
+
+
+// --------------------------------------- GAMES --------------------------------
+
+
+
+function gameIDToString(gameID) {
+	if(gameID == 0) return 'tic-tac-toe';
+	if(gameID == 1) return 'spam game';
+	return '';
+}
+
+function addToGameReqs(peerid, game) {
+	if(document.getElementById('gamechooseplayers').style.display == 'none') {
+		var username = peerToUsername(peerid);
+		var pid = peerToPlayerID(peerid);
+		currentGame = game;
+
+		document.getElementById('gamerequestheader').innerHTML = 'Game request from ' + username +  ' (PeerID ' + pid + '):';
+		document.getElementById('requestedgame').innerHTML = gameIDToString(game);
+		document.getElementById('gamereqests').style.display = 'block';
+	}
+}
+
+function rejectGameRequest() {
+	document.getElementById('gamereqests').style.display = 'none';
+}
+
+function acceptGameRequest() {
+	document.getElementById('playerstochoose').innerHTML = '';
+	for(var i=0; i<players.length; i++) {
+		if(players[i] != '') {
+			document.getElementById('playerstochoose').innerHTML += '<label class="checkbox-label"> <input type="checkbox" value="' + players[i] + '" id="p' + i + '">' + usernames[i] + '</label><br>'
+		}
+	}
+	document.getElementById('gamechooseplayers').style.display = '';
+	document.getElementById('gamereqests').style.display = 'none';
+}
+
+function startGame() {
+	
+	// 0 = tic-tac-toe
+	// 1 = spam game
+	
+	var gamers = [];
+	var spectators = [];
+	var g = 0;
+	var s = 0;
+	
+	for(var i=0; i<players.length; i++) {
+		var e = document.getElementById('p' + i);
+		if (e) {
+			if(e.checked == true) {
+				gamers[g] = e.value;
+				g++;
+			} else {
+				spectators[s] = e.value;
+				s++;
+			}
+		}
+	}
+	
+	// prep the roles array
+	
+	for(i in players) {
+		for(g in gamers) {
+			if(gamers[g] == players[i]) roles[i] = 0;
+		}
+		for(s in spectators) {
+			if(spectators[s] == players[i]) roles[i] = 1;
+		}
+	}
+	
+	console.log('starting game...', currentGame);
+	console.log('players:', gamers);
+	console.log('spectators:', spectators);
+
+	if(currentGame == 0) {
+		if(gamers.length == 2) {	
+			
+			// players
+			var dataToSend = [ {type: "joingame", game: 0, role: 0 } ];
+			for(i in gamers) {
+				if(peerToPlayerID(gamers[i]) != 0) {
+					sendData(peerToPlayerID(gamers[i]), dataToSend);
+				} else {
+					loadGame(0, 0);
+				}
+			}
+			
+			// spectators
+			dataToSend = [ {type: "joingame", game: 0, role: 1 } ];
+			for(i in spectators) {
+				if(peerToPlayerID(spectators[i]) != 0) {
+					sendData(peerToPlayerID(spectators[i]), dataToSend);
+				} else {
+					loadGame(0, 1);
+				}
+			}
+		
+			document.getElementById('chooseplayerserror').innerHTML = '';
+			document.getElementById('gamechooseplayers').style.display = 'none';
+		} else {
+			document.getElementById('chooseplayerserror').innerHTML = 'please select exactly 2 players.';
+		}
+	}
+}
+
+
+function loadGame(game, role) {
+	console.log("loading game id", game, 'with role', role);
+	
+	var roleStr = 'player';
+	if(role == 1) roleStr = 'spectator';
+	
+	
+	if(game == 0) { // tic-tac-toe
+		document.getElementById('tic-tac-toe').style.display = '';
+		document.getElementById('gametitle').innerHTML = 'tic-tac-toe';
+		document.getElementById('gamerole').innerHTML = 'you are a ' + roleStr + '!';
+	}
+}
+
 // pings
 setInterval(function() {
-	for(var i = 1; i < playersConnected; i++) {
-		if(pings[i] == true) {
+	for(var i = 1; i < 6; i++) {
+		if(pings[i] == true && players[i] != '') {
 			
 			var dataToSend = [ { type: "serverping" } ];
 			var tempConn = peerToConnObject(players[i]);
 			tempConn.send(dataToSend);
 			pings[i] = false;
 			
-		} else {
+		} else if (players[i] != ''){
 			
-			console.log('ping ' + i + ' failed.');
+			console.log('client ' + i + '\'s ping failed.');
 			var tempConn = peerToConnObject(players[i]);
 			tempConn.send([{ type: 'disconnect', reason: 'server-ping-failed' }]);
 			

@@ -32,7 +32,15 @@
 			<button id="disconnectbtnerr" class="copy-button" onClick="clientDisconnect();" style="display: none">disconnect</button>
 			<button id="fping" class="copy-button" style="display: none" onClick="failPings = true; document.getElementById('fping').innerHTML = 'fail pings (active)'">fail pings</button>
 		
-		</div>	
+		</div>
+		
+		<div id="tic-tac-toe" class="game-requests" style="display: none">
+			
+			<p class="game-title" id=gametitle>[game]</p>
+			<p id="gamerole">you are a [role]</p>
+			
+		</div>
+			
 		
 		<div class="row" id="main-content" style="display: none">
 			
@@ -69,7 +77,16 @@
 			<p id="playersconnected" class="user"></p>
 			
 			<div class="column-header">games<br><hr></div>
-			<p style="color: dimgray; position: relative; top: -70px">to be added!</p>
+			
+			<div class="box-outline" style="margin: 0px 20%">
+				 tic-tac-toe
+				<button id="tictactoereqbtn" class="copy-button" onClick="requestGame(0);">request</button>
+			</div><br>
+
+			<div class="box-outline" style="margin: 0px 20%">
+				spam game
+				<button id="spamreqbtn" class="copy-button" onClick="requestGame(1);" disabled>not working</button>
+			</div><br>
 			
 		</div>
 			

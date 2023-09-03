@@ -12,6 +12,7 @@
 		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
 		<script src="../../assets/js/online/host.js"></script>
 		<script src="../../assets/js/online/host-visual.js"></script>
+		<script src="../../assets/js/online/cookies.js"></script>
 			
 		<!-- FALLBACK LIBRARY CODE:
 		<script src="../../assets/js/peerjs.js></script>  -->
@@ -22,8 +23,9 @@
 
 	<body> <div align="center">
 	
-		<p class="title">online games (host) || <a href="javascript:devtools();">toggle devtools</a></p>
+		<p class="title">online games (host) || <a href="javascript:devtools();">toggle host tools</a></p>
 		<hr class="headerbar">
+		
 		
 		<div id="devtools">
 			
@@ -47,35 +49,94 @@
 			<small id="log" style="display: none"></small>
 
 		</div>
+		
+		<div class="buffer"></div>
+		
+		<div id="main" style="display: none">
 			
-		<div class="buffer"></div>
-		
-		<p>connected players:</p>
-		<p id="usernames"></p>
-		
-		<div class="buffer"></div>
-		
-		<div id="main">
-		
-		<div id="chat">
-	
+		<div id="gamereqests" class="game-requests" style="display: none">
+			
+			<p id="gamerequestheader">Game request from username (PID pid):</p>
+			
+			<p class="requested-game" id="requestedgame">game</p> &nbsp;
+			<button class="copy-button" onClick="acceptGameRequest();">accept</button>
+			<button class="copy-button" onClick="rejectGameRequest();">reject</button>
+			
+		</div>
+			
+		<div id="gamechooseplayers" class="game-requests" style="display: none">
+			
+			<p id="gamerequestheader">Choose players for game: <button class="copy-button" onClick="javascript:acceptGameRequest();">refresh</button></p>
+			
+			<form id="playerstochoose">
+			
+				<label class="checkbox-label"> <input type="checkbox" id="p1">&nbsp;username</label>
+			
+			</form>
+			
 			<br />
-			<form onsubmit="sendChat(); return false;">
-				<input type="text" class="input" placeholder="send a chat..." id="chatbox">
-				<input type="submit" class="copy-button" id="sendbtn" value="send">
-			</form>
+			
+			<button class="copy-button" onClick="document.getElementById('gamechooseplayers').style.display = 'none'">cancel</button>
+			<button class="copy-button" onClick="startGame();">play!</button>
+			
+			<small id="chooseplayerserror"></small>
 
-			<form onsubmit="saveChangeName(); return false;">
-				<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox" maxlength="25">
-				<input type="submit" value="save" class="copy-button" id="savenamebtn" style="display: none">
-			</form>
+		</div>
 			
-			<small id="currentname">current name: server-host</small>
-			<button class="copy-button" id="changenamebtn" onClick="showChangeName();">change</button>
+		<div id="tic-tac-toe" class="game-requests" style="display: none">
 			
-			<p class="title" id="chattitle"></p> 
+			<p class="game-title" id=gametitle>[game]</p>
+			<p id="gamerole">you are a [role]</p>
 			
-			<div id="chatlog"></div>
+		</div>
+			
+		<div class="row" id="main-content">
+			
+			<div class="column-chat">
+
+				<div id="chat">
+					
+					<div class="column-header">chat<br><hr></div> 
+					
+					<form onsubmit="sendChat(); return false;">
+						<input type="text" class="input" placeholder="send a chat..." id="chatbox">
+						<input type="submit" class="copy-button" id="sendbtn" value="send">
+					</form>
+
+					<form onsubmit="saveChangeName(); return false;">
+						<input type="text" class="input" value="unnamed-user" style="display: none" id="namebox" maxlength="25">
+						<input type="submit" value="save" class="copy-button" id="savenamebtn" style="display: none">
+					</form>
+
+					<small id="currentname">current name: unnamed-user</small>
+					<button class="copy-button" id="changenamebtn" onClick="showChangeName();">change</button>
+					
+					<div id="chatlog" class="chat-thread">
+						<p id="emptychatmsg" style="color: dimgray; text-align: center;">the chat thread is empty.</p>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		<div class="column-games">
+			
+			<div class="column-header">connected players:<br><hr></div> 
+			<p id="usernames"></p>
+			
+			<div class="column-header">games<br><hr></div>
+			
+			<div class="box-outline" style="margin: 0px 20%">
+				 tic-tac-toe
+				<button id="tictactoereqbtn" class="copy-button" onClick="requestGame(0);">request</button>
+			</div><br>
+
+			<div class="box-outline" style="margin: 0px 20%">
+				spam game
+				<button id="spamreqbtn" class="copy-button" onClick="requestGame(1);">request</button>
+			</div><br>
+			
+		</div>
 
 		</div>
 			

@@ -46,8 +46,9 @@ peer.on('open', function(id) {
 				console.log('Received data: ', data);
 				console.log('type', data[0].type);
 			} else {
-				console.log('Received data: ', data);
-				console.log('type', data[0].type);			
+//				console.log('Received data: ', data);
+//				console.log('type', data[0].type);		
+//				ping messages
 			}
 			
 			if(data[0].type == 'chat') {
@@ -97,6 +98,10 @@ peer.on('open', function(id) {
 			
 			if(data[0].type == 'disconnect') {
 				if(data[0].reason == 'server-ping-failed') window.location.href = "error.html#disconnect-server-ping"; 
+			}
+			
+			if(data[0].type == 'joingame') {
+				loadGame(data[0].game, data[0].role);
 			}
 		});
 		
@@ -149,5 +154,51 @@ setInterval(function() {
 		window.location.href = "error.html#connection"; 
 	}
 }, 5000);
+
+
+
+
+
+
+
+
+
+/* ------------------------- GAMES ------------------------------------ */
+
+function requestGame(game) {
+	
+	// 0 = tic-tac-toe
+	// 1 = spam game
+
+	if(game == 0) var e = document.getElementById("tictactoereqbtn");
+	if(game == 1) var e = document.getElementById("spamreqbtn");
+	
+	e.innerHTML = "requested!";
+	e.disabled = true;
+
+	setTimeout(function() {
+		e.innerHTML = "request";
+		e.disabled = false;
+	}, 3000);
+	
+	var dataToSend = [ { type: "gamereq", game: game } ];
+	conn.send(dataToSend);
+}
+
+
+
+function loadGame(game, role) {
+	console.log("loading game id", game, 'with role', role);
+	
+	var roleStr = 'player';
+	if(role == 1) roleStr = 'spectator';
+	
+	
+	if(game == 0) { // tic-tac-toe
+		document.getElementById('tic-tac-toe').style.display = '';
+		document.getElementById('gametitle').innerHTML = 'tic-tac-toe';
+		document.getElementById('gamerole').innerHTML = 'you are a ' + roleStr + '!';
+	}
+}
 
 

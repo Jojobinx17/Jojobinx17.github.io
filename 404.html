@@ -13,19 +13,9 @@
 			  src: url("/assets/consolas.TTF");
 			}
 
-			@font-face {
-			  font-family: consola1;
-			  src: url("../assets/consolas.TTF");
-			}
-
-			@font-face {
-			  font-family: consola2;
-			  src: url("../assets/consolas.TTF");
-			}
-
 			body {
 				background-color: #121212;
-				font-family: consola, consola1, consola2;
+				font-family: consola;
 				font-size: 28px;
 				color: white;
 				line-height: 1.5;
@@ -86,7 +76,7 @@
 		<script>
 			let messages = [ "uh oh... spaghetti-o's!", 
 							 "looks like i forgot to add that one.", 
-							 "that page doesn't exist. try again..? or not. you decide.",
+							 "that page doesn't exist. try again..?",
 						     "hey... that's not a real page!", 
 						   	 "woah! what a cool non-existent page!", ];
 			let index = Math.floor(Math.random() * 5);

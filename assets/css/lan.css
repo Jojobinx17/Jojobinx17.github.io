@@ -12,23 +12,25 @@ body {
   float: left;
   width: 50%;
   justify-content: center;
-	
   min-width: 400px;
-  
+	
+  border-left: 2px solid white;
+	
   text-align: center;
   position: relative;
   
 }
 
+
 .column-chat {
   float: left;
   width: 50%;
-	
   min-width: 400px;
-  
+	
   position: relative;
   text-align: center;
 }
+
 
 .row:after {
   content: "";
@@ -189,4 +191,34 @@ body {
 	background-color: #333;
 }
 
+.box-outline {
+	border: 2px solid white;
+	padding: 20px;
+}
 
+.game-requests {
+	border: 2px solid white;
+	padding: 20px;
+	margin: 10px 50px 50px 50px;
+}
+
+
+.requested-game {
+	border: 2px solid white;
+	padding: 20px 40px;
+	display: inline-block;
+}
+
+.checkbox-label {
+	
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.game-title {
+	font-size: 35px;
+}
