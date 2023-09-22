@@ -18,7 +18,7 @@
 								
 				switch(fileAlias) {
 						
-					case "testdoc":
+					case "test":
 						fileName = "testdoc.txt";
 						filePath = "assets/other/testdoc.txt"
 						break;
@@ -67,9 +67,7 @@
 	</head>
 
 	<body> <div align="center">
-		
-		<p class="title">- file download -</p>
-		
+				
 		<div style="height: 50px;"></div>
 		
 		<p id="file-name" class="bordered" style="display: none">Waiting...</p>
@@ -79,6 +77,11 @@
 			<a id="actual-link" href="#">click here</a>
 			to download it manually!
 		</p>
+		
+		<div class="footer">
+   			copyright Josiah Bergen 2023. all rights reserved. <a href="/">main site</a>
+		</div>
+		
 		
 		<script>
 			main();
