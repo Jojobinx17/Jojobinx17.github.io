@@ -1,64 +1,122 @@
-/* CSS Document */
-
-@font-face {
-  font-family: consola;
-  src: url("/assets/consolas.TTF");
-}
-
 body {
-    background-color: #121212;
-    font-family: consola;
-	font-size: 28px;
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+
+    background: rgb(244, 210, 225);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(244, 210, 225, 1) 0%,
+        rgba(207, 178, 213, 1) 28%,
+        rgba(184, 182, 221, 1) 80%,
+        rgba(183, 205, 231, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(244, 210, 225, 1) 0%,
+        rgba(207, 178, 213, 1) 28%,
+        rgba(184, 182, 221, 1) 80%,
+        rgba(183, 205, 231, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(244, 210, 225, 1) 0%,
+        rgba(207, 178, 213, 1) 28%,
+        rgba(184, 182, 221, 1) 80%,
+        rgba(183, 205, 231, 1) 100%
+    );
+}
+
+h1 {
+    font-size: 10vw;
     color: white;
-	line-height: 1.5;
+    text-shadow: 0.15vw 0.15vw 0.15vw black;
 }
 
-.no-select {
-	-webkit-user-select: none;
-	-webkit-touch-callout: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+#secret {
+    cursor: pointer;
+    color: black;
+    text-shadow: 0.15vw 0.15vw 0.15vw white;
 }
 
+.colored-link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3vw;
+    text-decoration: none;
+    color: white;
 
-.title {
-	font-size: 35px;
-	margin: 80px 0px 0px 0px;
+    display: inline-block;
+    margin: 0px 3vw;
+    transition: 0.3s;
+
+    text-align: center;
 }
 
-.subtitle {
-	font-size: 32;
-	margin: 10px 0px;
+.colored-link:hover {
+    transition: 0.3s;
+    color: #000000; /* screaming into the void */
 }
 
-.headerbar {
-	width: 400px;
-	margin: 10px 0px 20px 0px;
-	
+/* Link underline */
+
+.colored-link-left::after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.3vw;
+    bottom: 2.5vw;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom left;
+    transition: transform 0.25s ease-in-out;
 }
 
-.buffer { height: 30px; }
-.buffer1 { height: 60px; }
+.colored-link-left:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom right;
+}
 
-.menubar {
-	width: 150px;
+.colored-link-right::after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.3vw;
+    bottom: 2.5vw;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-in-out;
+}
+
+.colored-link-right:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.little-monkey {
+    position: fixed;
+    display: none;
+
+    bottom: 0;
+    right: 0;
+
+    transform: translate(0px, 70px);
+    scale: 0.7;
+    rotate: -30deg;
 }
 
 .footer {
-	font-size: 10px;
-}
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 
-.bordered-small { 
-	border: 2px solid #A8A8A8; 
-	border-radius: 10px; 
-	padding: 25px 30px 50px 30px; 
-	width: 500px;
-	margin-bottom: 50px;
-}
+    color: white;
+    padding: 1vw;
 
-a {
-	color: white;
-	text-decoration: underline;
+    font-size: 0.5vw;
 }

@@ -1,0 +1,64 @@
+/* CSS Document */
+
+@font-face {
+  font-family: consola;
+  src: url("/assets/consolas.TTF");
+}
+
+body {
+    background-color: #121212;
+    font-family: consola;
+	font-size: 28px;
+    color: white;
+	line-height: 1.5;
+}
+
+.no-select {
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+.title {
+	font-size: 35px;
+	margin: 80px 0px 0px 0px;
+}
+
+.subtitle {
+	font-size: 32;
+	margin: 10px 0px;
+}
+
+.headerbar {
+	width: 400px;
+	margin: 10px 0px 20px 0px;
+	
+}
+
+.buffer { height: 30px; }
+.buffer1 { height: 60px; }
+
+.menubar {
+	width: 150px;
+}
+
+.footer {
+	font-size: 10px;
+}
+
+.bordered-small { 
+	border: 2px solid #A8A8A8; 
+	border-radius: 10px; 
+	padding: 25px 30px 50px 30px; 
+	width: 500px;
+	margin-bottom: 50px;
+}
+
+a {
+	color: white;
+	text-decoration: underline;
+}
