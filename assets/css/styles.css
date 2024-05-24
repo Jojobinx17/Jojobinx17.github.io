@@ -3,7 +3,7 @@ body {
     font-family: "Arial", sans-serif;
     font-weight: bold;
 
-    background: rgb(244, 210, 225);
+    /* background: rgb(244, 210, 225);
     background: -moz-linear-gradient(
         90deg,
         rgba(244, 210, 225, 1) 0%,
@@ -24,26 +24,26 @@ body {
         rgba(207, 178, 213, 1) 28%,
         rgba(184, 182, 221, 1) 80%,
         rgba(183, 205, 231, 1) 100%
-    );
+    ); */
 }
 
 h1 {
     font-size: 10vw;
     color: white;
     text-shadow: 0.15vw 0.15vw 0.15vw black;
+    transition: 0.3s;
 }
 
 #secret {
     cursor: pointer;
     color: black;
-    text-shadow: 0.15vw 0.15vw 0.15vw white;
 }
 
 .colored-link {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3vw;
     text-decoration: none;
-    color: white;
+    color: black;
 
     display: inline-block;
     margin: 0px 3vw;
@@ -54,7 +54,7 @@ h1 {
 
 .colored-link:hover {
     transition: 0.3s;
-    color: #000000; /* screaming into the void */
+    color: #333333; /* screaming into the void */
 }
 
 /* Link underline */
@@ -68,7 +68,7 @@ h1 {
     height: 0.3vw;
     bottom: 2.5vw;
     left: 0;
-    background-color: #ffffff;
+    background-color: #000;
     transform-origin: bottom left;
     transition: transform 0.25s ease-in-out;
 }
@@ -87,7 +87,7 @@ h1 {
     height: 0.3vw;
     bottom: 2.5vw;
     left: 0;
-    background-color: #ffffff;
+    background-color: #000;
     transform-origin: bottom right;
     transition: transform 0.25s ease-in-out;
 }
@@ -95,6 +95,18 @@ h1 {
 .colored-link-right:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+#warning-title {
+    font-size: 2vw;
+    color: red;
+    margin: 50px 0px 0px 0px;
+}
+
+#warning-content {
+    font-size: 1vw;
+    color: black;
+    margin: 10px;
 }
 
 .little-monkey {
@@ -109,13 +121,43 @@ h1 {
     rotate: -30deg;
 }
 
+.black-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: -10;
+
+    background: rgb(0, 0, 0, 0);
+    background: -moz-radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0.2973783263305322) 100%
+    );
+    background: -webkit-radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0.2973783263305322) 100%
+    );
+    background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0.2973783263305322) 100%
+    );
+}
+
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
 
-    color: white;
+    color: black;
     padding: 1vw;
 
     font-size: 0.5vw;

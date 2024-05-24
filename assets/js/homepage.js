@@ -21,13 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const y = mouseEvent.clientY;
 
     var e = document.getElementById("title");
-    var s = document.getElementById("secret");
 
     var offsetx = ((window.innerWidth - x) / window.innerWidth) * 0.5 + -0.25;
     var offsety = ((window.innerHeight - y) / window.innerHeight) * 0.5 + -0.25;
 
     e.style.textShadow = "" + offsetx + "vw " + offsety + "vw 0.15vw black";
-    s.style.textShadow = "" + offsetx + "vw " + offsety + "vw 0.15vw white";
 
     // link effect
     const links = document.querySelectorAll(".colored-link");

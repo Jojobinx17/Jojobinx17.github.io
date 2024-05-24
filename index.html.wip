@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+        <script src="assets/js/homepage.js"></script>
+
+        <title>home</title>
+    </head>
+
+    <body>
+        <div class="black-gradient"></div>
+
+        <h1 id="title">jojobinx<span id="secret">.</span>com</h1>
+
+        <div class="navbar">
+            <a href="a/" class="colored-link colored-link-left">about me</a>
+            <a href="c/" class="colored-link colored-link-left">creations</a>
+            <a href="l/" class="colored-link colored-link-left">links</a>
+        </div>
+
+        <div>
+            <p id="warning-title">warning:</p>
+            <p id="warning-content">
+                this website is currently under construction. please excuse any
+                underwhelming design choices.
+            </p>
+        </div>
+
+        <img
+            src="assets/images/monkey.png"
+            width="120px"
+            class="little-monkey"
+            id="little-monkey"
+        />
+
+        <div class="footer">
+            copyright Josiah Bergen 2023. all rights reserved.
+        </div>
+    </body>
+</html>
