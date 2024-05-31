@@ -2,7 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="old/assets/css/styles.css"
+        />
         <title>downloads</title>
 
         <script>
@@ -17,12 +21,12 @@
                 switch (fileAlias) {
                     case "test":
                         fileName = "testdoc.txt";
-                        filePath = "assets/other/testdoc.txt";
+                        filePath = "f/testdoc.txt";
                         break;
 
                     case "duolingo-torture":
                         fileName = "duolingo-torture-main.zip";
-                        filePath = "assets/other/duolingo-torture-main.zip";
+                        filePath = "f/duolingo-torture-main.zip";
                         break;
 
                     default:
@@ -44,7 +48,7 @@
 
                 downloadLink.href = p;
                 downloadLink.download = n;
-                //downloadLink.click();
+                downloadLink.click();
 
                 document.getElementById("actual-link").href = p;
             }
@@ -74,7 +78,7 @@
             </p>
 
             <div class="footer">
-                copyright Josiah Bergen 2023. all rights reserved.
+                copyright Josiah Bergen 2024. all rights reserved.
                 <a href="/">main site</a>
             </div>
 
