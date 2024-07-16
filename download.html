@@ -2,91 +2,48 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="old/assets/css/styles.css"
-        />
-        <title>downloads</title>
-
-        <script>
-            function main() {
-                let fileAlias = location.hash.substring(1);
-                let HTMLName = document.getElementById("file-name");
-                let HTMLLink = document.getElementById("direct-link");
-
-                let fileName = "";
-                let filePath = "";
-
-                switch (fileAlias) {
-                    case "test":
-                        fileName = "testdoc.txt";
-                        filePath = "f/testdoc.txt";
-                        break;
-
-                    case "duolingo-torture":
-                        fileName = "duolingo-torture-main.zip";
-                        filePath = "f/duolingo-torture-main.zip";
-                        break;
-
-                    default:
-                        fileName = "No valid file specified.";
-                        break;
-                }
-
-                if (filePath.length > 0 && fileName.length > 0) {
-                    download(filePath, fileName);
-                    HTMLLink.style.display = "block";
-                }
-
-                HTMLName.innerHTML = fileName;
-                HTMLName.style.display = "inline-block";
-            }
-
-            function download(p, n) {
-                const downloadLink = document.createElement("a");
-
-                downloadLink.href = p;
-                downloadLink.download = n;
-                downloadLink.click();
-
-                document.getElementById("actual-link").href = p;
-            }
-        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="assets/js/download.js"></script>
 
         <style>
-            .bordered {
-                border: 2px solid #a8a8a8;
-                padding: 20px 40px;
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100vw;
+                height: 100vh;
+            }
+            .main-container {
+                text-align: center;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                font-style: italic;
+                text-align: center;
+                padding-bottom: 20px;
+                width: 100%;
+            }
+            #file-name {
+                border: 1px solid black; 
+                padding: 10px 20px;
                 display: inline-block;
             }
         </style>
+
+        <title>downloads</title>
     </head>
 
     <body>
-        <div align="center">
-            <div style="height: 50px"></div>
+        <noscript><i>this page needs javascript to work, sorry.</i></noscript>
 
-            <p id="file-name" class="bordered" style="display: none">
-                Waiting...
-            </p>
-
-            <p id="direct-link" style="font-size: 15px; display: none">
-                download not working?
-                <a id="actual-link" href="#">click here</a>
-                to download it manually!
-            </p>
-
-            <div class="footer">
-                copyright Josiah Bergen 2024. all rights reserved.
-                <a href="/">main site</a>
-            </div>
-
-            <script>
-                main();
-            </script>
-
-            <noscript>this page needs javascript to work, sorry.</noscript>
+        <div class="main-container">
+            <p id="file-name"></p>
+            <p id="download-message" style="display: none">not working? <a id="manual-link" href="#">click here</a>!</p>
+        </div>
+        <div class="footer">
+            copyright Josiah Bergen 2024. all rights reserved.
+            <a href="/">main site</a>
         </div>
     </body>
 </html>

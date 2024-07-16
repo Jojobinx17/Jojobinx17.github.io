@@ -3,7 +3,28 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Home</title>
+
+        <style>
+            body { width: 100vw; }
+            table { margin: 0 auto; }
+            td {
+                width: 20px; height: 20px;
+                text-align: center; vertical-align: top;
+                user-select: none;
+                -moz-user-select: none; -khtml-user-select: none; 
+                -webkit-user-select: none; -o-user-select: none;
+                cursor: pointer;
+            }
+            .ttt-b { border-bottom: 1px solid black; }
+            .ttt-r { border-right: 1px solid black; }
+            .ttt { border: 1px solid black; width: 20%; display: inline-block; padding: 10px 20px; margin: 20px 20px; text-align: center;}
+            @media (max-width: 800px) {
+                .ttt { width: 75vw;}
+            }
+        </style>
+        <script src="assets/js/ttt.js"></script>
+
+        <title>HOME</title>
     </head>
 
     <body>
@@ -28,7 +49,29 @@
         hang out. <br /><br />
 
         Thank you for visiting! (I promise I'll make it look better soon, but
-        the 1989 asthetic will stay for now, at least.)
-        <br /><br />
+        the 1989 asthetic will stay for now, at least.) <br />
+
+        <div class="ttt">
+            <i>care for a round of tic-tac-toe? <span id="ttt-message"></span></i>
+            <br /><br />
+
+            <table>
+                <tr>
+                    <td id="ttt-0" class="ttt-b ttt-r"></td>
+                    <td id="ttt-1" class="ttt-b ttt-r"></td>
+                    <td id="ttt-2" class="ttt-b"></td>
+                </tr>                
+                <tr>
+                    <td id="ttt-3" class="ttt-b ttt-r"></td>
+                    <td id="ttt-4" class="ttt-b ttt-r"></td>
+                    <td id="ttt-5" class="ttt-b"></td>
+                </tr>                
+                <tr>
+                    <td id="ttt-6" class="ttt-r"></td>
+                    <td id="ttt-7" class="ttt-r"></td>
+                    <td id="ttt-8"></td>
+                </tr>                
+            </table>
+        </div>
     </body>
 </html>
