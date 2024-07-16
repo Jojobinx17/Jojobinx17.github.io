@@ -27,6 +27,6 @@ function download(p, n) {
     const link = document.createElement("a");
     link.href = p;
     link.download = n;
-    //link.click();
+    link.click();
     document.getElementById("manual-link").href = p;
 }
