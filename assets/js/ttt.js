@@ -33,7 +33,7 @@ function checkWin() {
 
 function onWin(move) {
     const symbol = move === 0 ? 'x' : 'o';
-    document.getElementById('ttt-message').innerHTML = '(' + symbol + ' has won. <a href="#" onclick="javascript:resetBoard()">reset</a>)';
+    document.getElementById('ttt-message').innerHTML = '(' + symbol + ' wins! <a href="#" onclick="javascript:resetBoard()">reset</a>)';
     won = true;
 }
 
