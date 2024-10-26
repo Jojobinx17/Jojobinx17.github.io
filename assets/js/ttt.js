@@ -43,7 +43,7 @@ function onDraw() {
 }
 
 function resetBoard() {
-    document.getElementById('ttt-message').innerHTML = "";
+    document.getElementById('ttt-message').innerHTML = "click a square to begin.";
     for (var i = 0; i < 9; i++) {
         document.getElementById("ttt-" + i).innerHTML = '';
     }
